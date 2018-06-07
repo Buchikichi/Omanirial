@@ -29,24 +29,36 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.OriginalPictureBox = new System.Windows.Forms.PictureBox();
             this.CloseButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.Balloon = new System.Windows.Forms.ToolTip(this.components);
             this.PageListView = new System.Windows.Forms.TreeView();
             this.TitleTextBox = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.springLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ColumnsTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.OriginalPictureBox)).BeginInit();
+            this.StatusBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // OriginalPictureBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(184, 42);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(811, 625);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.OriginalPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OriginalPictureBox.Location = new System.Drawing.Point(184, 42);
+            this.OriginalPictureBox.Margin = new System.Windows.Forms.Padding(4);
+            this.OriginalPictureBox.Name = "OriginalPictureBox";
+            this.OriginalPictureBox.Size = new System.Drawing.Size(811, 625);
+            this.OriginalPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.OriginalPictureBox.TabIndex = 0;
+            this.OriginalPictureBox.TabStop = false;
             // 
             // CloseButton
             // 
@@ -78,6 +90,10 @@
             // 
             // StatusBar
             // 
+            this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.springLabel,
+            this.ProgressBar});
             this.StatusBar.Location = new System.Drawing.Point(0, 707);
             this.StatusBar.Name = "StatusBar";
             this.StatusBar.Size = new System.Drawing.Size(1008, 22);
@@ -92,10 +108,12 @@
             // PageListView
             // 
             this.PageListView.AllowDrop = true;
+            this.PageListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.PageListView.Location = new System.Drawing.Point(12, 41);
             this.PageListView.Name = "PageListView";
             this.PageListView.ShowRootLines = false;
-            this.PageListView.Size = new System.Drawing.Size(165, 387);
+            this.PageListView.Size = new System.Drawing.Size(165, 626);
             this.PageListView.TabIndex = 3;
             this.PageListView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PageListView_AfterSelect);
             this.PageListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.PageListView_DragDrop);
@@ -106,9 +124,62 @@
             this.TitleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TitleTextBox.Location = new System.Drawing.Point(12, 12);
+            this.TitleTextBox.MaxLength = 200;
             this.TitleTextBox.Name = "TitleTextBox";
             this.TitleTextBox.Size = new System.Drawing.Size(983, 23);
             this.TitleTextBox.TabIndex = 4;
+            // 
+            // ProgressBar
+            // 
+            this.ProgressBar.Name = "ProgressBar";
+            this.ProgressBar.Size = new System.Drawing.Size(200, 16);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(133, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // springLabel
+            // 
+            this.springLabel.Name = "springLabel";
+            this.springLabel.Size = new System.Drawing.Size(658, 17);
+            this.springLabel.Spring = true;
+            // 
+            // ColumnsTextBox
+            // 
+            this.ColumnsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ColumnsTextBox.Enabled = false;
+            this.ColumnsTextBox.Location = new System.Drawing.Point(184, 678);
+            this.ColumnsTextBox.Name = "ColumnsTextBox";
+            this.ColumnsTextBox.Size = new System.Drawing.Size(34, 23);
+            this.ColumnsTextBox.TabIndex = 5;
+            this.ColumnsTextBox.Text = "99";
+            this.ColumnsTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(224, 681);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(15, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "x";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numericUpDown1.Location = new System.Drawing.Point(245, 679);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(42, 23);
+            this.numericUpDown1.TabIndex = 7;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
             // 
             // EditingForm
             // 
@@ -117,19 +188,25 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ColumnsTextBox);
             this.Controls.Add(this.TitleTextBox);
             this.Controls.Add(this.PageListView);
             this.Controls.Add(this.StatusBar);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.CloseButton);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.OriginalPictureBox);
             this.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1024, 768);
             this.Name = "EditingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "編集";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OriginalPictureBox)).EndInit();
+            this.StatusBar.ResumeLayout(false);
+            this.StatusBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,12 +214,18 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox OriginalPictureBox;
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.StatusStrip StatusBar;
         private System.Windows.Forms.ToolTip Balloon;
         private System.Windows.Forms.TreeView PageListView;
         private System.Windows.Forms.TextBox TitleTextBox;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel springLabel;
+        private System.Windows.Forms.ToolStripProgressBar ProgressBar;
+        private System.Windows.Forms.TextBox ColumnsTextBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

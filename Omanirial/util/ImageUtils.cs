@@ -1,21 +1,31 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace Omanirial.util
 {
     public class ImageUtils
     {
-        private const int Margin = 90;
         private const int TimingMarkMinHeight = 30;
+
+        public static void FilterBW(Mat img)
+        {
+            var lower = new ScalarArray(new MCvScalar(0, 0, 0));
+            var upper = new ScalarArray(new MCvScalar(180, 180, 180));
+
+            CvInvoke.InRange(img, lower, upper, img);
+        }
 
         public static List<VectorOfPoint> DetectTimingMarks(Mat img)
         {
             var list = new List<VectorOfPoint>();
-            var top = Margin;
+            var pref = Preference.Instance;
+            var top = pref.TimingMarkHeight;
             var bottom = img.Height - top;
 
             var contours = new VectorOfVectorOfPoint();
@@ -61,11 +71,24 @@ namespace Omanirial.util
             return list;
         }
 
+        public static void UpsideDown(List<VectorOfPoint> list, int width, int height)
+        {
+            foreach (var vec in list)
+            {
+                var beginPt = vec[0];
+                var endPt = vec[1];
+
+                vec.Clear();
+                vec.Push(new Point[] { new Point(width - endPt.X, height - endPt.Y), new Point(width - beginPt.X, height - beginPt.Y) });
+            }
+        }
+
         public static bool IsUpsideDown(Mat img, List<VectorOfPoint> list)
         {
+            var pref = Preference.Instance;
             var numOfTop = 0;
             var numOfBottom = 0;
-            var top = Margin;
+            var top = pref.TimingMarkHeight;
             var bottom = img.Height - top;
 
             foreach (var vec in list)

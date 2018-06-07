@@ -78,18 +78,17 @@
             this.ImageListBox.Location = new System.Drawing.Point(13, 79);
             this.ImageListBox.Name = "ImageListBox";
             this.ImageListBox.Size = new System.Drawing.Size(160, 580);
-            this.ImageListBox.TabIndex = 2;
+            this.ImageListBox.TabIndex = 4;
             // 
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.BackColor = System.Drawing.Color.MistyRose;
-            this.SaveButton.Enabled = false;
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Location = new System.Drawing.Point(916, 674);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(80, 30);
-            this.SaveButton.TabIndex = 3;
+            this.SaveButton.TabIndex = 5;
             this.SaveButton.Text = "保存";
             this.SaveButton.UseVisualStyleBackColor = false;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
@@ -100,7 +99,7 @@
             this.CreateButton.Location = new System.Drawing.Point(13, 43);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(70, 30);
-            this.CreateButton.TabIndex = 3;
+            this.CreateButton.TabIndex = 2;
             this.CreateButton.Text = "新規";
             this.CreateButton.UseVisualStyleBackColor = true;
             this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
@@ -147,7 +146,8 @@
             this.BaseDirTextBox.Location = new System.Drawing.Point(233, 678);
             this.BaseDirTextBox.Name = "BaseDirTextBox";
             this.BaseDirTextBox.Size = new System.Drawing.Size(677, 23);
-            this.BaseDirTextBox.TabIndex = 6;
+            this.BaseDirTextBox.TabIndex = 0;
+            this.BaseDirTextBox.TabStop = false;
             this.BaseDirTextBox.Text = global::Omanirial.Properties.Settings.Default.BaseDir;
             this.BaseDirTextBox.DoubleClick += new System.EventHandler(this.BaseDirTextBox_DoubleClick);
             // 

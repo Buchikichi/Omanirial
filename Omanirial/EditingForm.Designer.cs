@@ -91,10 +91,15 @@
             // 
             // PageListView
             // 
+            this.PageListView.AllowDrop = true;
             this.PageListView.Location = new System.Drawing.Point(12, 41);
             this.PageListView.Name = "PageListView";
-            this.PageListView.Size = new System.Drawing.Size(121, 299);
+            this.PageListView.ShowRootLines = false;
+            this.PageListView.Size = new System.Drawing.Size(165, 387);
             this.PageListView.TabIndex = 3;
+            this.PageListView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PageListView_AfterSelect);
+            this.PageListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.PageListView_DragDrop);
+            this.PageListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.PageListView_DragEnter);
             // 
             // TitleTextBox
             // 
@@ -107,6 +112,7 @@
             // 
             // EditingForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;

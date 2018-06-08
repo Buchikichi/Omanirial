@@ -1,9 +1,9 @@
-﻿using Emgu.CV;
-using Emgu.CV.Structure;
-using Emgu.CV.Util;
+﻿using Omanirial.data;
 using Omanirial.Properties;
 using Omanirial.util;
+using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -12,32 +12,7 @@ namespace Omanirial
     public partial class MainForm : Form
     {
         private Preference pref = Preference.Instance;
-
-        private void LoadImage(string filename)
-        {
-            var img = new Mat(filename);
-            var height = img.Height;
-            var top = 90;
-            var bottom = height - top;
-            var mask = new Mat();
-            var lower = new ScalarArray(new MCvScalar(0, 0, 0));
-            var upper = new ScalarArray(new MCvScalar(180, 180, 180));
-
-            CvInvoke.InRange(img, lower, upper, mask);
-            //CvInvoke.BitwiseNot(mask, mask);
-            var list = ImageUtils.DetectTimingMarks(mask, out bool isUpsideDown);
-
-            Debug.Print($"IsUpsideDown:{isUpsideDown}");
-            foreach (var vec in list)
-            {
-                //var cn = new VectorOfVectorOfPoint();
-
-                //cn.Push(vec);
-                //CvInvoke.DrawContours(img, cn, 0, new MCvScalar(0, 0, 200), 4);
-            }
-            BasePictureBox.Image?.Dispose();
-            BasePictureBox.Image = img.Bitmap;
-        }
+        private MarkRecognizer recognizer = new MarkRecognizer();
 
         private void LoadLayout()
         {
@@ -54,6 +29,41 @@ namespace Omanirial
             }
             return true;
         }
+
+        #region ImageListBox
+        private void ImageListBox_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.None;
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                return;
+            }
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void ImageListBox_DragDrop(object sender, DragEventArgs e)
+        {
+            var nameList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            foreach (var name in nameList)
+            {
+                if (!name.EndsWith(".jpg") && !name.EndsWith(".jpeg"))
+                {
+                    continue;
+                }
+                ImageListBox.Items.Add(PageInfo.Create(name));
+            }
+        }
+
+        private void ImageListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var page = (PageInfo)ImageListBox.SelectedItem;
+
+            recognizer.Recognize(page);
+            BasePictureBox.Image?.Dispose();
+            BasePictureBox.Image = Image.FromFile(page.Filename);
+        }
+        #endregion
 
         #region Event
         private void CreateButton_Click(object sender, System.EventArgs e)
@@ -72,27 +82,10 @@ namespace Omanirial
 
         private void BasePictureBox_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.None;
-            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                return;
-            }
-            e.Effect = DragDropEffects.Copy;
         }
 
         private void BasePictureBox_DragDrop(object sender, DragEventArgs e)
         {
-            var nameList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-
-            foreach (var name in nameList)
-            {
-                if (!name.EndsWith(".jpg") && !name.EndsWith(".jpeg"))
-                {
-                    continue;
-                }
-                LoadImage(name);
-                break;
-            }
         }
 
         private void BaseDirTextBox_DoubleClick(object sender, System.EventArgs e)

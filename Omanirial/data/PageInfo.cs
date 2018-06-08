@@ -61,5 +61,10 @@ namespace Omanirial.data
             }
             return page;
         }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

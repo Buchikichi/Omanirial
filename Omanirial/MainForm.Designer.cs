@@ -73,12 +73,16 @@
             // 
             // ImageListBox
             // 
+            this.ImageListBox.AllowDrop = true;
             this.ImageListBox.FormattingEnabled = true;
             this.ImageListBox.ItemHeight = 16;
             this.ImageListBox.Location = new System.Drawing.Point(13, 79);
             this.ImageListBox.Name = "ImageListBox";
             this.ImageListBox.Size = new System.Drawing.Size(160, 580);
             this.ImageListBox.TabIndex = 4;
+            this.ImageListBox.SelectedIndexChanged += new System.EventHandler(this.ImageListBox_SelectedIndexChanged);
+            this.ImageListBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.ImageListBox_DragDrop);
+            this.ImageListBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.ImageListBox_DragEnter);
             // 
             // SaveButton
             // 

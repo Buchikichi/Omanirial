@@ -74,6 +74,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="util\ImageUtils.cs" />
+    <Compile Include="util\MarkRecognizer.cs" />
     <Compile Include="util\Preference.cs" />
     <EmbeddedResource Include="EditingForm.resx">
       <DependentUpon>EditingForm.cs</DependentUpon>

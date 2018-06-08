@@ -11,21 +11,70 @@ namespace Omanirial.util
 {
     public class ImageUtils
     {
-        private const int TimingMarkMinHeight = 30;
-
-        public static void FilterBW(Mat img)
+        public static void FilterBW(Mat img, int t)
         {
             var lower = new ScalarArray(new MCvScalar(0, 0, 0));
-            var upper = new ScalarArray(new MCvScalar(180, 180, 180));
+            var upper = new ScalarArray(new MCvScalar(t, t, t));
 
             CvInvoke.InRange(img, lower, upper, img);
         }
 
-        public static List<VectorOfPoint> DetectTimingMarks(Mat img)
+        private static bool IsUpsideDown(Mat img, List<VectorOfPoint> list)
         {
-            var list = new List<VectorOfPoint>();
             var pref = Preference.Instance;
-            var top = pref.TimingMarkHeight;
+            var numOfTop = 0;
+            var numOfBottom = 0;
+            var top = pref.TimingMarkAreaHeight;
+            var bottom = img.Height - top;
+
+            foreach (var vec in list)
+            {
+                var pt = vec[0];
+
+                if (pt.Y <= top)
+                {
+                    numOfTop++;
+                }
+                if (bottom <= pt.Y)
+                {
+                    numOfBottom++;
+                }
+                Debug.Print($"pt.Y:{pt.Y}");
+            }
+            Debug.Print($"top:{numOfTop}/bottom:{numOfBottom}");
+            return numOfBottom < numOfTop;
+        }
+
+        private static List<Point> RefillTimingMarks(List<VectorOfPoint> timingMarks, Mat img, bool isUpsideDown)
+        {
+            var list = new List<Point>();
+            var width = img.Width;
+            var height = img.Height;
+
+            if (isUpsideDown)
+            {
+                foreach (var vec in timingMarks)
+                {
+                    var pt = vec[1];
+
+                    list.Add(new Point(width - pt.X, height - pt.Y));
+                }
+            }
+            else
+            {
+                foreach (var vec in timingMarks)
+                {
+                    list.Add(vec[0]);
+                }
+            }
+            return list;
+        }
+
+        public static List<Point> DetectTimingMarks(Mat img, out bool isUpsideDown)
+        {
+            var timingMarks = new List<VectorOfPoint>();
+            var pref = Preference.Instance;
+            var top = pref.TimingMarkAreaHeight;
             var bottom = img.Height - top;
 
             var contours = new VectorOfVectorOfPoint();
@@ -45,11 +94,11 @@ namespace Omanirial.util
                     var nextPt = vec[1];
                     var height = Math.Abs(beginPt.Y - nextPt.Y);
 
-                    if (height < TimingMarkMinHeight)
+                    if (height < pref.TimingMarkMinHeight)
                     {
                         continue;
                     }
-                    Debug.Print($"height:{height}");
+                    //Debug.Print($"height:{height}");
                     var isOut = false;
 
                     for (var iy = 0; iy < vec.Size; iy++)
@@ -65,47 +114,11 @@ namespace Omanirial.util
                     {
                         continue;
                     }
-                    list.Add(vec);
+                    timingMarks.Add(vec);
                 }
             }
-            return list;
-        }
-
-        public static void UpsideDown(List<VectorOfPoint> list, int width, int height)
-        {
-            foreach (var vec in list)
-            {
-                var beginPt = vec[0];
-                var endPt = vec[1];
-
-                vec.Clear();
-                vec.Push(new Point[] { new Point(width - endPt.X, height - endPt.Y), new Point(width - beginPt.X, height - beginPt.Y) });
-            }
-        }
-
-        public static bool IsUpsideDown(Mat img, List<VectorOfPoint> list)
-        {
-            var pref = Preference.Instance;
-            var numOfTop = 0;
-            var numOfBottom = 0;
-            var top = pref.TimingMarkHeight;
-            var bottom = img.Height - top;
-
-            foreach (var vec in list)
-            {
-                var pt = vec[0];
-
-                if (pt.Y <= top)
-                {
-                    numOfTop++;
-                }
-                if (bottom <= pt.Y)
-                {
-                    numOfBottom++;
-                }
-            }
-            Debug.Print($"top:{numOfTop}/bottom:{numOfBottom}");
-            return numOfBottom < numOfTop;
+            isUpsideDown = IsUpsideDown(img, timingMarks);
+            return RefillTimingMarks(timingMarks, img, isUpsideDown);
         }
     }
 }

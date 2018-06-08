@@ -40,6 +40,12 @@ namespace Omanirial.util
         public string LayoutDir { get; set; }
         public string TemporaryDir { get; set; }
 
-        public int TimingMarkHeight { get; set; }
+        public int Dpi { get; set; } = 200;
+        public int MarkAreaDefaultHeight { get; set; }
+        public int MarkAreaDefaultRows { get; set; }
+        public int MarkColorThreshold { get; set; }
+        public int MarkRadius { get; set; }
+        public int TimingMarkAreaHeight { get; set; }
+        public int TimingMarkMinHeight { get; set; }
     }
 }

@@ -33,18 +33,18 @@
             this.CloseButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.springLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.Balloon = new System.Windows.Forms.ToolTip(this.components);
             this.PageListView = new System.Windows.Forms.TreeView();
             this.TitleTextBox = new System.Windows.Forms.TextBox();
-            this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.springLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ColumnsTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.RowsUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.OriginalPictureBox)).BeginInit();
             this.StatusBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // OriginalPictureBox
@@ -100,6 +100,23 @@
             this.StatusBar.TabIndex = 2;
             this.StatusBar.Text = "statusStrip1";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // springLabel
+            // 
+            this.springLabel.Name = "springLabel";
+            this.springLabel.Size = new System.Drawing.Size(673, 17);
+            this.springLabel.Spring = true;
+            // 
+            // ProgressBar
+            // 
+            this.ProgressBar.Name = "ProgressBar";
+            this.ProgressBar.Size = new System.Drawing.Size(200, 16);
+            // 
             // Balloon
             // 
             this.Balloon.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
@@ -129,23 +146,6 @@
             this.TitleTextBox.Size = new System.Drawing.Size(983, 23);
             this.TitleTextBox.TabIndex = 4;
             // 
-            // ProgressBar
-            // 
-            this.ProgressBar.Name = "ProgressBar";
-            this.ProgressBar.Size = new System.Drawing.Size(200, 16);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(133, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // springLabel
-            // 
-            this.springLabel.Name = "springLabel";
-            this.springLabel.Size = new System.Drawing.Size(658, 17);
-            this.springLabel.Spring = true;
-            // 
             // ColumnsTextBox
             // 
             this.ColumnsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -167,15 +167,15 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "x";
             // 
-            // numericUpDown1
+            // RowsUpDown
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown1.Location = new System.Drawing.Point(245, 679);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(42, 23);
-            this.numericUpDown1.TabIndex = 7;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.RowsUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RowsUpDown.Location = new System.Drawing.Point(245, 679);
+            this.RowsUpDown.Name = "RowsUpDown";
+            this.RowsUpDown.Size = new System.Drawing.Size(42, 23);
+            this.RowsUpDown.TabIndex = 7;
+            this.RowsUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.RowsUpDown.Value = new decimal(new int[] {
             99,
             0,
             0,
@@ -188,7 +188,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.RowsUpDown);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ColumnsTextBox);
             this.Controls.Add(this.TitleTextBox);
@@ -199,14 +199,14 @@
             this.Controls.Add(this.OriginalPictureBox);
             this.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(1024, 768);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "EditingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "編集";
             ((System.ComponentModel.ISupportInitialize)(this.OriginalPictureBox)).EndInit();
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,6 +226,6 @@
         private System.Windows.Forms.ToolStripProgressBar ProgressBar;
         private System.Windows.Forms.TextBox ColumnsTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown RowsUpDown;
     }
 }

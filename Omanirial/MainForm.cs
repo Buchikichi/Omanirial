@@ -25,16 +25,15 @@ namespace Omanirial
 
             CvInvoke.InRange(img, lower, upper, mask);
             //CvInvoke.BitwiseNot(mask, mask);
-            var list = ImageUtils.DetectTimingMarks(mask);
-            var ud = ImageUtils.IsUpsideDown(mask, list);
+            var list = ImageUtils.DetectTimingMarks(mask, out bool isUpsideDown);
 
-            Debug.Print($"IsUpsideDown:{ud}");
+            Debug.Print($"IsUpsideDown:{isUpsideDown}");
             foreach (var vec in list)
             {
-                var cn = new VectorOfVectorOfPoint();
+                //var cn = new VectorOfVectorOfPoint();
 
-                cn.Push(vec);
-                CvInvoke.DrawContours(img, cn, 0, new MCvScalar(0, 0, 200), 4);
+                //cn.Push(vec);
+                //CvInvoke.DrawContours(img, cn, 0, new MCvScalar(0, 0, 200), 4);
             }
             BasePictureBox.Image?.Dispose();
             BasePictureBox.Image = img.Bitmap;

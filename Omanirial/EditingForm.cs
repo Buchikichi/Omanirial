@@ -12,7 +12,7 @@ namespace Omanirial
     public partial class EditingForm : Form
     {
         #region Member
-        private PageInfo current;
+        private PageInfo currentPage;
         private Mat lastMat;
         #endregion
 
@@ -21,16 +21,13 @@ namespace Omanirial
         {
             var page = new PageInfo(filename);
             //var children = new TreeNode []{ new TreeNode("A"), new TreeNode("B") , new TreeNode("C") };
+            var pref = Preference.Instance;
 
             using (var img = new Mat(filename))
             {
-                ImageUtils.FilterBW(img);
-                page.PointList.AddRange(ImageUtils.DetectTimingMarks(img));
-                page.IsUpsideDown = ImageUtils.IsUpsideDown(img, page.PointList);
-                if (page.IsUpsideDown)
-                {
-                    ImageUtils.UpsideDown(page.PointList, img.Width, img.Height);
-                }
+                ImageUtils.FilterBW(img, pref.MarkColorThreshold);
+                page.PointList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
+                page.IsUpsideDown = isUpsideDown;
             }
             //page.Nodes.AddRange(children);
             PageListView.Nodes.Add(page);
@@ -69,26 +66,26 @@ namespace Omanirial
         private void DrawImage(PageInfo page)
         {
             var img = new Mat(page.Filename);
+
             if (page.IsUpsideDown)
             {
                 CvInvoke.Flip(img, img, FlipType.Horizontal);
                 CvInvoke.Flip(img, img, FlipType.Vertical);
             }
-            foreach (var vec in page.PointList)
+            foreach (var pt in page.PointList)
             {
-                var beginPt = vec[0];
-                var endPt = vec[1];
-
-                if (beginPt.Y < 90)
+                if (pt.Y < 90)
                 {
                     continue;
                 }
-                //using (var cn = new VectorOfVectorOfPoint())
-                //{
-                //    cn.Push(vec);
-                //    CvInvoke.DrawContours(img, cn, 0, new MCvScalar(0, 0, 200), 4);
-                //}
-                CvInvoke.Line(img, beginPt, new Point(beginPt.X, 0), new MCvScalar(200, 255, 200));
+                CvInvoke.Line(img, pt, new Point(pt.X, 0), new MCvScalar(200, 255, 200));
+            }
+            var y = page.MarkAreaBottom;
+
+            for (var ix = 0; ix < page.MarkAreaRows; ix++)
+            {
+                CvInvoke.Line(img, new Point(0, y), new Point(img.Width, y), new MCvScalar(200, 200, 255));
+                y -= 50;
             }
             lastMat?.Dispose();
             lastMat = img;
@@ -108,13 +105,14 @@ namespace Omanirial
             {
                 parent = (PageInfo)child.Parent;
             }
-            if (current == parent)
+            if (currentPage == parent)
             {
                 return;
             }
             DrawImage(parent);
             ColumnsTextBox.Text = parent.PointList.Count.ToString();
-            current = parent;
+            RowsUpDown.Value = parent.MarkAreaRows;
+            currentPage = parent;
         }
         #endregion
 

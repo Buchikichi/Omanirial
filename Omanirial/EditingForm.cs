@@ -17,22 +17,6 @@ namespace Omanirial
         #endregion
 
         #region PageListView
-        private void LoadPageInfo(string filename)
-        {
-            var page = new PageInfo(filename);
-            //var children = new TreeNode []{ new TreeNode("A"), new TreeNode("B") , new TreeNode("C") };
-            var pref = Preference.Instance;
-
-            using (var img = new Mat(filename))
-            {
-                ImageUtils.FilterBW(img, pref.MarkColorThreshold);
-                page.PointList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
-                page.IsUpsideDown = isUpsideDown;
-            }
-            //page.Nodes.AddRange(children);
-            PageListView.Nodes.Add(page);
-        }
-
         private void PageListView_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.None;
@@ -57,7 +41,7 @@ namespace Omanirial
                 {
                     continue;
                 }
-                LoadPageInfo(name);
+                PageListView.Nodes.Add(PageInfo.Create(name));
             }
             Initialize();
             PageListView.ExpandAll();

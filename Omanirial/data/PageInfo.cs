@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Emgu.CV;
+using Omanirial.util;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -44,6 +46,20 @@ namespace Omanirial.data
         public PageInfo(string text) : base(Path.GetFileName(text))
         {
             Filename = text;
+        }
+
+        public static PageInfo Create(string filename)
+        {
+            var page = new PageInfo(filename);
+            var pref = Preference.Instance;
+
+            using (var img = new Mat(filename))
+            {
+                ImageUtils.FilterBW(img, pref.MarkColorThreshold);
+                page.PointList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
+                page.IsUpsideDown = isUpsideDown;
+            }
+            return page;
         }
     }
 }

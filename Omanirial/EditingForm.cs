@@ -57,7 +57,7 @@ namespace Omanirial
                 CvInvoke.Flip(img, img, FlipType.Horizontal);
                 CvInvoke.Flip(img, img, FlipType.Vertical);
             }
-            foreach (var pt in page.PointList)
+            foreach (var pt in page.TimingMarkList)
             {
                 CvInvoke.Line(img, pt, new Point(pt.X, 0), new MCvScalar(200, 255, 200));
             }
@@ -94,7 +94,7 @@ namespace Omanirial
                 return;
             }
             DrawImage(parent);
-            ColumnsTextBox.Text = parent.PointList.Count.ToString();
+            ColumnsTextBox.Text = parent.TimingMarkList.Count.ToString();
             RowsUpDown.Value = parent.MarkAreaRows;
             currentPage = parent;
         }

@@ -64,6 +64,7 @@
       <DependentUpon>CustomPictureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="data\LayoutInfo.cs" />
+    <Compile Include="data\MarkInfo.cs" />
     <Compile Include="data\PageInfo.cs" />
     <Compile Include="EditingForm.cs">
       <SubType>Form</SubType>

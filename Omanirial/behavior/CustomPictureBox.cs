@@ -30,39 +30,48 @@ namespace Omanirial.behavior
             var w = r * 2;
             var mx = (int)(MousePt.Value.X / scale - leftMargin);
             var my = (int)(MousePt.Value.Y / scale - topMargin);
-            var dx = Width;
-            var dy = Height;
-            var y = Page.MarkAreaBottom;
+            var min = int.MaxValue;
 
-            foreach (var pt in Page.PointList)
+            foreach (var mark in Page.MarkList)
             {
-                var diff = pt.X - mx;
+                var pt = mark.Location;
+                var dist = Math.Pow(pt.X - mx, 2) + Math.Pow(pt.Y - my, 2);
 
-                if (Math.Abs(diff) < Math.Abs(dx))
+                if (dist < min)
                 {
-                    dx = diff;
+                    LastMark = mark;
+                    min = (int)dist;
                 }
             }
-            mx += dx;
-            for (var ix = 0; ix < Page.MarkAreaRows; ix++)
-            {
-                var diff = y - my;
+            var p = LastMark.Location;
 
-                if (Math.Abs(diff) < Math.Abs(dy))
+            g.DrawRectangle(Pens.Red, new Rectangle(p.X - r, p.Y - r, w, w));
+        }
+
+        private void DrawMark(Graphics g, float scale)
+        {
+            var r = pref.MarkRadius;
+            var w = r * 2;
+
+            foreach (var mark in Page.MarkList)
+            {
+                if (mark.IsMarked)
                 {
-                    dy = diff;
+                    var pt = mark.Location;
+
+                    g.DrawEllipse(Pens.Blue, new Rectangle(pt.X - r, pt.Y - r, w, w));
                 }
-                y -= Page.MarkPitch;
             }
-            my += dy;
-            g.DrawEllipse(Pens.Red, new RectangleF(mx - r, my - r, w, w));
         }
 
         private void DrawGrid(Graphics g, float scale)
         {
+            var r = pref.MarkRadius;
+            var w = r * 2;
+
             using (var pen = new Pen(Brushes.LightGreen, .2f))
             {
-                foreach (var pt in Page.PointList)
+                foreach (var pt in Page.TimingMarkList)
                 {
                     g.DrawLine(pen, new Point(pt.X, 0), pt);
                 }
@@ -84,14 +93,32 @@ namespace Omanirial.behavior
                 return;
             }
             var g = e.Graphics;
+            var state = g.Save();
             var scale = CalcScale(g);
             var topMargin = (Height / scale - Page.Height) / 2;
             var leftMargin = (Width / scale - Page.Width) / 2;
 
             g.ScaleTransform(scale, scale);
             g.TranslateTransform(leftMargin, topMargin);
-            DrawGrid(g, scale);
+            //DrawGrid(g, scale);
+            DrawMark(g, scale);
             DrawCell(g, scale);
+            g.Restore(state);
+
+            if (LastMark != null)
+            {
+                var x = 0;
+
+                foreach (var b in LastMark.Hist)
+                {
+                    g.DrawLine(Pens.Blue, new Point(x, 0), new Point(x, b));
+                    x += 4;
+                    if (1 < x)
+                    {
+                        //return;
+                    }
+                }
+            }
         }
         #endregion
 
@@ -117,6 +144,7 @@ namespace Omanirial.behavior
 
         public PageInfo Page { get; set; }
         public Point? MousePt { get; set; }
+        public MarkInfo LastMark { get; set; }
         #endregion
     }
 }

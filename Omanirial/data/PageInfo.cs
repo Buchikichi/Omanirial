@@ -10,24 +10,18 @@ namespace Omanirial.data
     public class PageInfo : TreeNode
     {
         private int _timingMarkTop;
+        private List<MarkInfo> _markList = new List<MarkInfo>();
 
         public string Filename { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public List<Point> PointList { get; } = new List<Point>();
+        public List<Point> TimingMarkList { get; } = new List<Point>();
         public bool IsUpsideDown { get; set; }
         public int MarkMargin { get; set; } = 55;
         public int MarkPitch { get; set; } = 50;
         public int MarkAreaRows { get; set; } = 30;
-        public int MarkColorThreshold { get; set; } = 180;
-
-        public int MarkAreaBottom
-        {
-            get
-            {
-                return TimingMarkTop - MarkMargin;
-            }
-        }
+        public int MarkColorThreshold { get; set; } = 150;//180;
+        public int MarkAreaBottom => TimingMarkTop - MarkMargin;
 
         public int TimingMarkTop
         {
@@ -37,13 +31,43 @@ namespace Omanirial.data
                 {
                     var total = 0;
 
-                    foreach (var pt in PointList)
+                    foreach (var pt in TimingMarkList)
                     {
                         total += pt.Y;
                     }
-                    _timingMarkTop = total / PointList.Count;
+                    _timingMarkTop = total / TimingMarkList.Count;
                 }
                 return _timingMarkTop;
+            }
+        }
+        public List<MarkInfo> MarkList
+        {
+            get
+            {
+                if (0 < _markList.Count)
+                {
+                    return _markList;
+                }
+                var y = MarkAreaBottom;
+
+                for (var ix = 0; ix < MarkAreaRows; ix++)
+                {
+                    foreach (var pt in TimingMarkList)
+                    {
+                        _markList.Add(new MarkInfo { Location = new Point(pt.X, y) });
+                    }
+                    y -= MarkPitch;
+                }
+                _markList.Sort((m1, m2) =>
+                {
+                    var p1 = m1.Location;
+                    var p2 = m2.Location;
+                    var v1 = p1.X + p1.Y * Width;
+                    var v2 = p2.X + p2.Y * Height;
+
+                    return v1 - v2;
+                });
+                return _markList;
             }
         }
 
@@ -55,14 +79,13 @@ namespace Omanirial.data
         public static PageInfo Create(string filename)
         {
             var page = new PageInfo(filename);
-            var pref = Preference.Instance;
 
             using (var img = new Mat(filename))
             {
                 page.Width = img.Width;
                 page.Height = img.Height;
-                ImageUtils.FilterBW(img, pref.MarkColorThreshold);
-                page.PointList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
+                ImageUtils.FilterBW(img, page.MarkColorThreshold);
+                page.TimingMarkList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
                 page.IsUpsideDown = isUpsideDown;
             }
             return page;

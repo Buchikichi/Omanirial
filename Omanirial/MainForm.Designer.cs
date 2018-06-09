@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.BasePictureBox = new System.Windows.Forms.PictureBox();
+            this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.LayoutListBox = new System.Windows.Forms.ComboBox();
             this.ImageListBox = new System.Windows.Forms.ListBox();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -50,13 +50,13 @@
             this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
             this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.BasePictureBox.Location = new System.Drawing.Point(179, 12);
+            this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
             this.BasePictureBox.Name = "BasePictureBox";
+            this.BasePictureBox.Page = null;
             this.BasePictureBox.Size = new System.Drawing.Size(817, 656);
             this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BasePictureBox.TabIndex = 0;
             this.BasePictureBox.TabStop = false;
-            this.BasePictureBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.BasePictureBox_DragDrop);
-            this.BasePictureBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.BasePictureBox_DragEnter);
             // 
             // LayoutListBox
             // 
@@ -184,7 +184,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox BasePictureBox;
+        private behavior.CustomPictureBox BasePictureBox;
         private System.Windows.Forms.ComboBox LayoutListBox;
         private System.Windows.Forms.ListBox ImageListBox;
         private System.Windows.Forms.Button SaveButton;

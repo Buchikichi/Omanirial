@@ -12,10 +12,14 @@ namespace Omanirial.data
         private int _timingMarkTop;
 
         public string Filename { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public List<Point> PointList { get; } = new List<Point>();
         public bool IsUpsideDown { get; set; }
         public int MarkMargin { get; set; } = 55;
+        public int MarkPitch { get; set; } = 50;
         public int MarkAreaRows { get; set; } = 30;
+        public int MarkColorThreshold { get; set; } = 180;
 
         public int MarkAreaBottom
         {
@@ -55,6 +59,8 @@ namespace Omanirial.data
 
             using (var img = new Mat(filename))
             {
+                page.Width = img.Width;
+                page.Height = img.Height;
                 ImageUtils.FilterBW(img, pref.MarkColorThreshold);
                 page.PointList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
                 page.IsUpsideDown = isUpsideDown;

@@ -42,9 +42,12 @@
             this.ColumnsTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.RowsUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ThresholdBar = new System.Windows.Forms.TrackBar();
+            this.ThresholdLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.OriginalPictureBox)).BeginInit();
             this.StatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ThresholdBar)).BeginInit();
             this.SuspendLayout();
             // 
             // OriginalPictureBox
@@ -103,13 +106,13 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(133, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // springLabel
             // 
             this.springLabel.Name = "springLabel";
-            this.springLabel.Size = new System.Drawing.Size(673, 17);
+            this.springLabel.Size = new System.Drawing.Size(658, 17);
             this.springLabel.Spring = true;
             // 
             // ProgressBar
@@ -181,6 +184,28 @@
             0,
             0});
             // 
+            // ThresholdBar
+            // 
+            this.ThresholdBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ThresholdBar.AutoSize = false;
+            this.ThresholdBar.Location = new System.Drawing.Point(319, 682);
+            this.ThresholdBar.Maximum = 255;
+            this.ThresholdBar.Name = "ThresholdBar";
+            this.ThresholdBar.Size = new System.Drawing.Size(300, 20);
+            this.ThresholdBar.TabIndex = 8;
+            this.ThresholdBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.ThresholdBar.Scroll += new System.EventHandler(this.ThresholdBar_Scroll);
+            // 
+            // ThresholdLabel
+            // 
+            this.ThresholdLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ThresholdLabel.Location = new System.Drawing.Point(293, 679);
+            this.ThresholdLabel.Name = "ThresholdLabel";
+            this.ThresholdLabel.Size = new System.Drawing.Size(33, 20);
+            this.ThresholdLabel.TabIndex = 9;
+            this.ThresholdLabel.Text = "999";
+            this.ThresholdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // EditingForm
             // 
             this.AllowDrop = true;
@@ -197,6 +222,8 @@
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.OriginalPictureBox);
+            this.Controls.Add(this.ThresholdLabel);
+            this.Controls.Add(this.ThresholdBar);
             this.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(800, 600);
@@ -207,6 +234,7 @@
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ThresholdBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,5 +255,7 @@
         private System.Windows.Forms.TextBox ColumnsTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown RowsUpDown;
+        private System.Windows.Forms.TrackBar ThresholdBar;
+        private System.Windows.Forms.Label ThresholdLabel;
     }
 }

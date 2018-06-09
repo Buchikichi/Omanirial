@@ -59,7 +59,12 @@ namespace Omanirial
         {
             var page = (PageInfo)ImageListBox.SelectedItem;
 
+            if (page == null)
+            {
+                return;
+            }
             recognizer.Recognize(page);
+            BasePictureBox.Page = page;
             BasePictureBox.Image?.Dispose();
             BasePictureBox.Image = Image.FromFile(page.Filename);
         }
@@ -78,14 +83,6 @@ namespace Omanirial
             next.ShowDialog(this);
             Show();
             Debug.Print("Dialog");
-        }
-
-        private void BasePictureBox_DragEnter(object sender, DragEventArgs e)
-        {
-        }
-
-        private void BasePictureBox_DragDrop(object sender, DragEventArgs e)
-        {
         }
 
         private void BaseDirTextBox_DoubleClick(object sender, System.EventArgs e)
@@ -117,7 +114,6 @@ namespace Omanirial
 
         private void Initialize()
         {
-            BasePictureBox.AllowDrop = true;
             Shown += (sender, e) => ResetControls();
             FormClosing += (sender, e) => Settings.Default.Save();
         }

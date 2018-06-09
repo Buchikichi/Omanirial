@@ -57,6 +57,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="behavior\CustomPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="behavior\CustomPictureBox.Designer.cs">
+      <DependentUpon>CustomPictureBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="data\LayoutInfo.cs" />
     <Compile Include="data\PageInfo.cs" />
     <Compile Include="EditingForm.cs">

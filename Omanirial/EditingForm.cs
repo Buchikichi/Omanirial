@@ -50,6 +50,7 @@ namespace Omanirial
         private void DrawImage(PageInfo page)
         {
             var img = new Mat(page.Filename);
+            var threshold = page.MarkColorThreshold;
 
             if (page.IsUpsideDown)
             {
@@ -67,6 +68,9 @@ namespace Omanirial
                 CvInvoke.Line(img, new Point(0, y), new Point(img.Width, y), new MCvScalar(200, 255, 200));
                 y -= 50;
             }
+            ThresholdLabel.Text = threshold.ToString();
+            ThresholdBar.Value = threshold;
+            //ImageUtils.FilterBW(img, threshold);
             lastMat?.Dispose();
             lastMat = img;
             OriginalPictureBox.Image?.Dispose();
@@ -95,6 +99,15 @@ namespace Omanirial
             currentPage = parent;
         }
         #endregion
+
+        private void ThresholdBar_Scroll(object sender, EventArgs e)
+        {
+            var val = ThresholdBar.Value;
+
+            ThresholdLabel.Text = val.ToString();
+            currentPage.MarkColorThreshold = val;
+            DrawImage(currentPage);
+        }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {

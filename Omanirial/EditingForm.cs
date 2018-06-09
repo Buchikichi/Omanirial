@@ -58,17 +58,13 @@ namespace Omanirial
             }
             foreach (var pt in page.PointList)
             {
-                if (pt.Y < 90)
-                {
-                    continue;
-                }
                 CvInvoke.Line(img, pt, new Point(pt.X, 0), new MCvScalar(200, 255, 200));
             }
             var y = page.MarkAreaBottom;
 
             for (var ix = 0; ix < page.MarkAreaRows; ix++)
             {
-                CvInvoke.Line(img, new Point(0, y), new Point(img.Width, y), new MCvScalar(200, 200, 255));
+                CvInvoke.Line(img, new Point(0, y), new Point(img.Width, y), new MCvScalar(200, 255, 200));
                 y -= 50;
             }
             lastMat?.Dispose();

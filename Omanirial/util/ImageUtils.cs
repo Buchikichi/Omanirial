@@ -4,7 +4,6 @@ using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace Omanirial.util
@@ -19,63 +18,17 @@ namespace Omanirial.util
             CvInvoke.InRange(img, lower, upper, img);
         }
 
-        private static bool IsUpsideDown(Mat img, List<VectorOfPoint> list)
-        {
-            var pref = Preference.Instance;
-            var numOfTop = 0;
-            var numOfBottom = 0;
-            var top = pref.TimingMarkAreaHeight;
-            var bottom = img.Height - top;
-
-            foreach (var vec in list)
-            {
-                var pt = vec[0];
-
-                if (pt.Y <= top)
-                {
-                    numOfTop++;
-                }
-                if (bottom <= pt.Y)
-                {
-                    numOfBottom++;
-                }
-                Debug.Print($"pt.Y:{pt.Y}");
-            }
-            Debug.Print($"top:{numOfTop}/bottom:{numOfBottom}");
-            return numOfBottom < numOfTop;
-        }
-
-        private static List<Point> RefillTimingMarks(List<VectorOfPoint> timingMarks, Mat img, bool isUpsideDown)
-        {
-            var list = new List<Point>();
-            var width = img.Width;
-            var height = img.Height;
-
-            if (isUpsideDown)
-            {
-                foreach (var vec in timingMarks)
-                {
-                    var pt = vec[1];
-
-                    list.Add(new Point(width - pt.X, height - pt.Y));
-                }
-            }
-            else
-            {
-                foreach (var vec in timingMarks)
-                {
-                    list.Add(vec[0]);
-                }
-            }
-            return list;
-        }
+        private enum TimingMarkType { Out = 0, Top = 1, Bottom = 2 }
 
         public static List<Point> DetectTimingMarks(Mat img, out bool isUpsideDown)
         {
-            var timingMarks = new List<VectorOfPoint>();
+            var topMarks = new List<Point>();
+            var bottomMarks = new List<Point>();
             var pref = Preference.Instance;
             var top = pref.TimingMarkAreaHeight;
             var bottom = img.Height - top;
+            var width = img.Width;
+            var height = img.Height;
 
             var contours = new VectorOfVectorOfPoint();
             {
@@ -86,39 +39,55 @@ namespace Omanirial.util
                     var peri = CvInvoke.ArcLength(contours[ix], true);
 
                     CvInvoke.ApproxPolyDP(contours[ix], vec, peri * .1, true);
-                    if (vec.Size <= 1 || 3 < vec.Size)
+                    if (vec.Size <= 1 || 2 < vec.Size)
                     {
                         continue;
                     }
                     var beginPt = vec[0];
                     var nextPt = vec[1];
-                    var height = Math.Abs(beginPt.Y - nextPt.Y);
+                    var markHeight = Math.Abs(beginPt.Y - nextPt.Y);
 
-                    if (height < pref.TimingMarkMinHeight)
+                    if (markHeight < pref.TimingMarkMinHeight)
                     {
                         continue;
                     }
                     //Debug.Print($"height:{height}");
-                    var isOut = false;
+                    var type = TimingMarkType.Out;
 
                     for (var iy = 0; iy < vec.Size; iy++)
                     {
                         var pt = vec[iy];
 
-                        if (top < pt.Y && pt.Y < bottom)
+                        if (pt.Y <= top)
                         {
-                            isOut = true;
+                            type = TimingMarkType.Top;
+                        }
+                        else if (bottom <= pt.Y)
+                        {
+                            type = TimingMarkType.Bottom;
                         }
                     }
-                    if (isOut)
+                    if (type == TimingMarkType.Out)
                     {
                         continue;
                     }
-                    timingMarks.Add(vec);
+                    else if (type == TimingMarkType.Top)
+                    {
+                        var src = vec[1];
+                        topMarks.Add(new Point(width - src.X, height - src.Y));
+                    }
+                    else if (type == TimingMarkType.Bottom)
+                    {
+                        bottomMarks.Add(vec[0]);
+                    }
                 }
             }
-            isUpsideDown = IsUpsideDown(img, timingMarks);
-            return RefillTimingMarks(timingMarks, img, isUpsideDown);
+            isUpsideDown = bottomMarks.Count <  topMarks.Count;
+            if (isUpsideDown)
+            {
+                return topMarks;
+            }
+            return bottomMarks;
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Omanirial.data
 {
@@ -10,6 +6,11 @@ namespace Omanirial.data
     {
         public string ID { get; set; }
         public string Name { get; set; }
-        public List<PageInfo> PageList { get; } = new List<PageInfo>();
+        public List<PageInfo> PageList { get; set; } = new List<PageInfo>();
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

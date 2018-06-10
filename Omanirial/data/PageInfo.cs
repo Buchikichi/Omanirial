@@ -3,26 +3,37 @@ using Omanirial.util;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
+using System.Runtime.Serialization;
 
 namespace Omanirial.data
 {
-    public class PageInfo : TreeNode
+    [DataContract]
+    public class PageInfo
     {
+        #region Attributes
         private int _timingMarkTop;
-        private List<MarkInfo> _markList = new List<MarkInfo>();
+        private List<MarkInfo> _markList;
 
+        [DataMember]
         public string Filename { get; set; }
+        [DataMember]
         public int Width { get; set; }
+        [DataMember]
         public int Height { get; set; }
-        public List<Point> TimingMarkList { get; } = new List<Point>();
+        [DataMember]
+        public List<Point> TimingMarkList { get; set; } = new List<Point>();
+        [DataMember]
         public bool IsUpsideDown { get; set; }
+        [DataMember]
         public int MarkMargin { get; set; } = 55;
+        [DataMember]
         public int MarkPitch { get; set; } = 50;
+        [DataMember]
         public int MarkAreaRows { get; set; } = 30;
+        [DataMember]
         public int MarkColorThreshold { get; set; } = 150;//180;
-        public int MarkAreaBottom => TimingMarkTop - MarkMargin;
 
+        public int MarkAreaBottom => TimingMarkTop - MarkMargin;
         public int TimingMarkTop
         {
             get
@@ -44,12 +55,13 @@ namespace Omanirial.data
         {
             get
             {
-                if (0 < _markList.Count)
+                if (_markList != null && 0 < _markList.Count)
                 {
                     return _markList;
                 }
                 var y = MarkAreaBottom;
 
+                _markList = new List<MarkInfo>();
                 for (var ix = 0; ix < MarkAreaRows; ix++)
                 {
                     foreach (var pt in TimingMarkList)
@@ -70,8 +82,9 @@ namespace Omanirial.data
                 return _markList;
             }
         }
+        #endregion
 
-        public PageInfo(string text) : base(Path.GetFileName(text))
+        public PageInfo(string text)
         {
             Filename = text;
         }
@@ -93,7 +106,7 @@ namespace Omanirial.data
 
         public override string ToString()
         {
-            return Text;
+            return Path.GetFileName(Filename);;
         }
     }
 }

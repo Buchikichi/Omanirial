@@ -1,10 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Structure;
 using Omanirial.data;
-using Omanirial.util;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Omanirial
@@ -14,6 +11,7 @@ namespace Omanirial
         #region Member
         private PageInfo currentPage;
         private Mat lastMat;
+        public LayoutInfo CurrentLayout { get; set; }
         #endregion
 
         #region PageListView
@@ -41,10 +39,13 @@ namespace Omanirial
                 {
                     continue;
                 }
-                PageListView.Nodes.Add(PageInfo.Create(name));
+                var page = PageInfo.Create(name);
+
+                PageListView.Nodes.Add(new PageNode(page));
+                CurrentLayout.PageList.Add(page);
             }
-            Initialize();
             PageListView.ExpandAll();
+            RefreshControls();
         }
 
         private void DrawImage(PageInfo page)
@@ -57,50 +58,48 @@ namespace Omanirial
                 CvInvoke.Flip(img, img, FlipType.Horizontal);
                 CvInvoke.Flip(img, img, FlipType.Vertical);
             }
-            foreach (var pt in page.TimingMarkList)
-            {
-                CvInvoke.Line(img, pt, new Point(pt.X, 0), new MCvScalar(200, 255, 200));
-            }
-            var y = page.MarkAreaBottom;
-
-            for (var ix = 0; ix < page.MarkAreaRows; ix++)
-            {
-                CvInvoke.Line(img, new Point(0, y), new Point(img.Width, y), new MCvScalar(200, 255, 200));
-                y -= 50;
-            }
             ThresholdLabel.Text = threshold.ToString();
             ThresholdBar.Value = threshold;
             //ImageUtils.FilterBW(img, threshold);
-            CvInvoke.MedianBlur(img, img, 1);
+            CvInvoke.MedianBlur(img, img, 3);
             lastMat?.Dispose();
             lastMat = img;
-            OriginalPictureBox.Image?.Dispose();
-            OriginalPictureBox.Image = img.Bitmap;
+            BasePictureBox.Page = page;
+            BasePictureBox.Image?.Dispose();
+            BasePictureBox.Image = img.Bitmap;
         }
 
         private void PageListView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            PageInfo parent = null;
+            PageNode parent = null;
 
-            if (e.Node is PageInfo page)
+            if (e.Node is PageNode pageNode)
             {
-                parent = page;
+                parent = pageNode;
             }
             else if (e.Node is TreeNode child)
             {
-                parent = (PageInfo)child.Parent;
+                parent = (PageNode)child.Parent;
             }
-            if (currentPage == parent)
+            var page = parent.Page;
+            if (currentPage == page)
             {
                 return;
             }
-            DrawImage(parent);
-            ColumnsTextBox.Text = parent.TimingMarkList.Count.ToString();
-            RowsUpDown.Value = parent.MarkAreaRows;
-            currentPage = parent;
+            currentPage = page;
+            DrawImage(page);
+            ColumnsTextBox.Text = page.TimingMarkList.Count.ToString();
+            RowsUpDown.Value = page.MarkAreaRows;
         }
         #endregion
 
+        #region ToolBar
+        private void ShowGridButton_CheckedChanged(object sender, EventArgs e)
+        {
+            BasePictureBox.ShowGrid = ShowGridButton.Checked;
+            BasePictureBox.Invalidate();
+        }
+        #endregion
         private void ThresholdBar_Scroll(object sender, EventArgs e)
         {
             var val = ThresholdBar.Value;
@@ -112,6 +111,9 @@ namespace Omanirial
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            var manager = new LayoutManager();
+
+            manager.Save(CurrentLayout);
             Close();
         }
 
@@ -121,9 +123,39 @@ namespace Omanirial
         }
 
         #region Begin/End
+        private void RefreshControls()
+        {
+            var canSave = !string.IsNullOrWhiteSpace(TitleTextBox.Text) && 0 < CurrentLayout.PageList.Count;
+
+            SaveButton.Enabled = canSave;
+            ProgressBar.Value = 0;
+        }
+
+        private void LoadLayout()
+        {
+            TitleTextBox.Text = CurrentLayout.Name;
+
+            foreach (var page in CurrentLayout.PageList)
+            {
+                PageListView.Nodes.Add(new PageNode(page));
+            }
+        }
+
         private void Initialize()
         {
-            ProgressBar.Value = 0;
+            Load += (sender, e) =>
+            {
+                if (CurrentLayout == null)
+                {
+                    CurrentLayout = new LayoutInfo { ID = Guid.NewGuid().ToString() };
+                }
+                LoadLayout();
+            };
+            TitleTextBox.Validating += (sender, e) =>
+            {
+                CurrentLayout.Name = TitleTextBox.Text;
+                RefreshControls();
+            };
         }
 
         public EditingForm()

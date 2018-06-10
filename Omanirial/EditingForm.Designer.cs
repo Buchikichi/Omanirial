@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.OriginalPictureBox = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditingForm));
             this.CloseButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
@@ -44,31 +44,24 @@
             this.RowsUpDown = new System.Windows.Forms.NumericUpDown();
             this.ThresholdBar = new System.Windows.Forms.TrackBar();
             this.ThresholdLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.OriginalPictureBox)).BeginInit();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.StatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThresholdBar)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // OriginalPictureBox
-            // 
-            this.OriginalPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.OriginalPictureBox.Location = new System.Drawing.Point(184, 42);
-            this.OriginalPictureBox.Margin = new System.Windows.Forms.Padding(4);
-            this.OriginalPictureBox.Name = "OriginalPictureBox";
-            this.OriginalPictureBox.Size = new System.Drawing.Size(811, 625);
-            this.OriginalPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.OriginalPictureBox.TabIndex = 0;
-            this.OriginalPictureBox.TabStop = false;
             // 
             // CloseButton
             // 
             this.CloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloseButton.Location = new System.Drawing.Point(916, 674);
+            this.CloseButton.Location = new System.Drawing.Point(892, 674);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(80, 30);
             this.CloseButton.TabIndex = 1;
@@ -83,7 +76,7 @@
             this.SaveButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.SaveButton.Location = new System.Drawing.Point(830, 674);
+            this.SaveButton.Location = new System.Drawing.Point(806, 674);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(80, 30);
             this.SaveButton.TabIndex = 1;
@@ -146,7 +139,7 @@
             this.TitleTextBox.Location = new System.Drawing.Point(12, 12);
             this.TitleTextBox.MaxLength = 200;
             this.TitleTextBox.Name = "TitleTextBox";
-            this.TitleTextBox.Size = new System.Drawing.Size(983, 23);
+            this.TitleTextBox.Size = new System.Drawing.Size(960, 23);
             this.TitleTextBox.TabIndex = 4;
             // 
             // ColumnsTextBox
@@ -206,6 +199,63 @@
             this.ThresholdLabel.Text = "999";
             this.ThresholdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
+            this.toolStripSeparator1,
+            this.ShowGridButton});
+            this.toolStrip1.Location = new System.Drawing.Point(975, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(33, 707);
+            this.toolStrip1.TabIndex = 11;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // ShowGridButton
+            // 
+            this.ShowGridButton.AutoSize = false;
+            this.ShowGridButton.CheckOnClick = true;
+            this.ShowGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ShowGridButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowGridButton.Image")));
+            this.ShowGridButton.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.ShowGridButton.Name = "ShowGridButton";
+            this.ShowGridButton.Size = new System.Drawing.Size(32, 32);
+            this.ShowGridButton.Text = "toolStripButton1";
+            this.ShowGridButton.CheckedChanged += new System.EventHandler(this.ShowGridButton_CheckedChanged);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(30, 6);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(30, 20);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
+            // BasePictureBox
+            // 
+            this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BasePictureBox.LastMark = null;
+            this.BasePictureBox.Location = new System.Drawing.Point(184, 42);
+            this.BasePictureBox.Margin = new System.Windows.Forms.Padding(4);
+            this.BasePictureBox.MousePt = null;
+            this.BasePictureBox.Name = "BasePictureBox";
+            this.BasePictureBox.Page = null;
+            this.BasePictureBox.ShowGrid = false;
+            this.BasePictureBox.ShowMarks = false;
+            this.BasePictureBox.Size = new System.Drawing.Size(787, 625);
+            this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BasePictureBox.TabIndex = 0;
+            this.BasePictureBox.TabStop = false;
+            // 
             // EditingForm
             // 
             this.AllowDrop = true;
@@ -213,6 +263,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.RowsUpDown);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ColumnsTextBox);
@@ -221,7 +272,7 @@
             this.Controls.Add(this.StatusBar);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.CloseButton);
-            this.Controls.Add(this.OriginalPictureBox);
+            this.Controls.Add(this.BasePictureBox);
             this.Controls.Add(this.ThresholdLabel);
             this.Controls.Add(this.ThresholdBar);
             this.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -230,11 +281,13 @@
             this.Name = "EditingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "編集";
-            ((System.ComponentModel.ISupportInitialize)(this.OriginalPictureBox)).EndInit();
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThresholdBar)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,7 +295,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox OriginalPictureBox;
+        private behavior.CustomPictureBox BasePictureBox;
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.StatusStrip StatusBar;
@@ -257,5 +310,9 @@
         private System.Windows.Forms.NumericUpDown RowsUpDown;
         private System.Windows.Forms.TrackBar ThresholdBar;
         private System.Windows.Forms.Label ThresholdLabel;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton ShowGridButton;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

@@ -49,10 +49,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
             this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BasePictureBox.LastMark = null;
             this.BasePictureBox.Location = new System.Drawing.Point(179, 12);
             this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
             this.BasePictureBox.Name = "BasePictureBox";
             this.BasePictureBox.Page = null;
+            this.BasePictureBox.ShowGrid = false;
+            this.BasePictureBox.ShowMarks = true;
             this.BasePictureBox.Size = new System.Drawing.Size(817, 656);
             this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BasePictureBox.TabIndex = 0;
@@ -62,10 +65,6 @@
             // 
             this.LayoutListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.LayoutListBox.FormattingEnabled = true;
-            this.LayoutListBox.Items.AddRange(new object[] {
-            "Q677819スペースワン",
-            "編集",
-            "削除"});
             this.LayoutListBox.Location = new System.Drawing.Point(13, 13);
             this.LayoutListBox.Name = "LayoutListBox";
             this.LayoutListBox.Size = new System.Drawing.Size(160, 24);
@@ -117,6 +116,7 @@
             this.EditButton.TabIndex = 3;
             this.EditButton.Text = "編集";
             this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // StatusBar
             // 

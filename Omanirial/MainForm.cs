@@ -11,20 +11,15 @@ namespace Omanirial
 {
     public partial class MainForm : Form
     {
-        private Preference pref = Preference.Instance;
-        private MarkRecognizer recognizer = new MarkRecognizer();
-
-        private void LoadLayout()
-        {
-        }
-
         private bool CheckBaseDir()
         {
             var dir = BaseDirTextBox.Text;
 
+            RefreshControls();
+            Balloon.RemoveAll();
             if (!Directory.Exists(dir))
             {
-                Balloon.Show("入出力ディレクトリーを指定してください。", BaseDirTextBox, 0, -BaseDirTextBox.Height * 3);
+                Balloon.Show("入出力ディレクトリーを正しく指定してください。", BaseDirTextBox, 0, -BaseDirTextBox.Height * 3);
                 return false;
             }
             return true;
@@ -63,6 +58,8 @@ namespace Omanirial
             {
                 return;
             }
+            var recognizer = new MarkRecognizer();
+
             recognizer.Recognize(page);
             BasePictureBox.Page = page;
             BasePictureBox.Image?.Dispose();
@@ -71,21 +68,31 @@ namespace Omanirial
         #endregion
 
         #region Event
-        private void CreateButton_Click(object sender, System.EventArgs e)
+        private void ShowEditingForm()
         {
             if (!CheckBaseDir())
             {
                 return;
             }
-            var next = new EditingForm();
+            var layout = (LayoutInfo)LayoutListBox.SelectedItem;
+            var next = new EditingForm { CurrentLayout = layout };
 
             Hide();
             next.ShowDialog(this);
             Show();
-            Debug.Print("Dialog");
         }
 
-        private void BaseDirTextBox_DoubleClick(object sender, System.EventArgs e)
+        private void CreateButton_Click(object sender, EventArgs e)
+        {
+            ShowEditingForm();
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            ShowEditingForm();
+        }
+
+        private void BaseDirTextBox_DoubleClick(object sender, EventArgs e)
         {
             if (!CheckBaseDir())
             {
@@ -94,7 +101,7 @@ namespace Omanirial
             Process.Start(BaseDirTextBox.Text);
         }
 
-        private void SaveButton_Click(object sender, System.EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             Preference.Instance.Save();
         }
@@ -103,18 +110,42 @@ namespace Omanirial
         #region Begin/End
         private void RefreshControls()
         {
-            CheckBaseDir();
+            var layout = LayoutListBox.SelectedItem;
+            var canEdit = layout != null;
+
+            EditButton.Enabled = canEdit;
         }
 
-        private void ResetControls()
+        //private void ResetControls()
+        //{
+        //    Balloon.RemoveAll();
+        //    RefreshControls();
+        //}
+
+        private void LoadLayoutInfo()
         {
-            Balloon.RemoveAll();
+            LayoutListBox.Items.Clear();
+            if (!CheckBaseDir())
+            {
+                return;
+            }
+            var manager = new LayoutManager();
+
+            foreach (var layout in manager.ListLayout())
+            {
+                LayoutListBox.Items.Add(layout);
+            }
+            if (0 < LayoutListBox.Items.Count)
+            {
+                LayoutListBox.SelectedIndex = 0;
+            }
             RefreshControls();
         }
 
         private void Initialize()
         {
-            Shown += (sender, e) => ResetControls();
+            Shown += (sender, e) => LoadLayoutInfo();
+            BaseDirTextBox.Validated += (sender, e) => LoadLayoutInfo();
             FormClosing += (sender, e) => Settings.Default.Save();
         }
         public MainForm()

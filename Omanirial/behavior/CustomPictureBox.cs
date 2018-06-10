@@ -1,7 +1,6 @@
 ﻿using Omanirial.data;
 using Omanirial.util;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -27,6 +26,7 @@ namespace Omanirial.behavior
             }
             var topMargin = (Height / scale - Page.Height) / 2;
             var leftMargin = (Width / scale - Page.Width) / 2;
+            var pref = Preference.Instance;
             var r = pref.MarkRadius;
             var w = r * 2;
             var mx = (int)(MousePt.Value.X / scale - leftMargin);
@@ -49,8 +49,9 @@ namespace Omanirial.behavior
             g.DrawRectangle(Pens.Green, new Rectangle(p.X - r, p.Y - r, w, w));
         }
 
-        private void DrawMark(Graphics g, float scale)
+        private void DrawMarks(Graphics g, float scale)
         {
+            var pref = Preference.Instance;
             var r = pref.MarkRadius;
             var w = r * 2;
 
@@ -67,10 +68,7 @@ namespace Omanirial.behavior
 
         private void DrawGrid(Graphics g, float scale)
         {
-            var r = pref.MarkRadius;
-            var w = r * 2;
-
-            using (var pen = new Pen(Brushes.LightGreen, .2f))
+            using (var pen = new Pen(Brushes.LightSkyBlue, .2f))
             {
                 foreach (var pt in Page.TimingMarkList)
                 {
@@ -124,8 +122,14 @@ namespace Omanirial.behavior
 
             g.ScaleTransform(scale, scale);
             g.TranslateTransform(leftMargin, topMargin);
-            //DrawGrid(g, scale);
-            DrawMark(g, scale);
+            if (ShowGrid)
+            {
+                DrawGrid(g, scale);
+            }
+            if (ShowMarks)
+            {
+                DrawMarks(g, scale);
+            }
             DrawCell(g, scale);
             g.Restore(state);
 
@@ -151,11 +155,12 @@ namespace Omanirial.behavior
         #endregion
 
         #region Members
-        private PreferenceData pref = Preference.Instance;
-
         public PageInfo Page { get; set; }
         public Point? MousePt { get; set; }
         public MarkInfo LastMark { get; set; }
+
+        public bool ShowGrid { get; set; }
+        public bool ShowMarks { get; set; }
         #endregion
     }
 }

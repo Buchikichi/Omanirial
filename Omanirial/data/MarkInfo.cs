@@ -6,6 +6,6 @@ namespace Omanirial.data
     {
         public Point Location { get; set; }
         public byte[] Hist { get; set; }
-        public bool IsMarked { get; set; }
+        public int Score { get; set; }
     }
 }

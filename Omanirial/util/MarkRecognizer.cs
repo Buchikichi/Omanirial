@@ -9,6 +9,18 @@ namespace Omanirial.util
     {
         private PreferenceData pref = Preference.Instance;
 
+        private int CalcScore(MarkInfo mark)
+        {
+            var max = (int)(mark.Hist.Length * .65);
+            var total = 0;
+
+            for (var ix = 0; ix < max; ix++)
+            {
+                total += mark.Hist[ix];
+            }
+            return total;
+        }
+
         public void Recognize(PageInfo page)
         {
             var r = pref.MarkRadius;
@@ -16,7 +28,8 @@ namespace Omanirial.util
 
             using (var img = new Mat(page.Filename))
             {
-                ImageUtils.FilterBW(img, page.MarkColorThreshold);
+                //ImageUtils.FilterBW(img, page.MarkColorThreshold);
+                CvInvoke.MedianBlur(img, img, 3);
                 foreach (var mark in page.MarkList)
                 {
                     var pt = mark.Location;
@@ -32,9 +45,8 @@ namespace Omanirial.util
                             vm.Push(mat);
                             CvInvoke.CalcHist(vm, new int[] { 0 }, null, hist, histSize, ranges, false);
                         }
-                        mark.Hist = hist.GetData(0);
-                        mark.IsMarked = 10 < mark.Hist[1];
-                        //Debug.Print($"Rows:{hist.Rows}/Cols:{hist.Cols}");
+                        mark.Hist = hist.GetData();
+                        mark.Score = CalcScore(mark);
                     }
                 }
             }

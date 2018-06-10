@@ -71,6 +71,7 @@ namespace Omanirial
             ThresholdLabel.Text = threshold.ToString();
             ThresholdBar.Value = threshold;
             //ImageUtils.FilterBW(img, threshold);
+            CvInvoke.MedianBlur(img, img, 1);
             lastMat?.Dispose();
             lastMat = img;
             OriginalPictureBox.Image?.Dispose();

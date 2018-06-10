@@ -1,6 +1,7 @@
 ﻿using Omanirial.data;
 using Omanirial.util;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -45,7 +46,7 @@ namespace Omanirial.behavior
             }
             var p = LastMark.Location;
 
-            g.DrawRectangle(Pens.Red, new Rectangle(p.X - r, p.Y - r, w, w));
+            g.DrawRectangle(Pens.Green, new Rectangle(p.X - r, p.Y - r, w, w));
         }
 
         private void DrawMark(Graphics g, float scale)
@@ -55,11 +56,11 @@ namespace Omanirial.behavior
 
             foreach (var mark in Page.MarkList)
             {
-                if (mark.IsMarked)
+                if (500 < mark.Score)
                 {
                     var pt = mark.Location;
 
-                    g.DrawEllipse(Pens.Blue, new Rectangle(pt.X - r, pt.Y - r, w, w));
+                    g.DrawEllipse(Pens.LimeGreen, new Rectangle(pt.X - r, pt.Y - r, w, w));
                 }
             }
         }
@@ -85,6 +86,29 @@ namespace Omanirial.behavior
             }
         }
 
+        private void DrawHist(Graphics g)
+        {
+            if (LastMark == null)
+            {
+                return;
+            }
+            var x = 0;
+            var max = (int)(LastMark.Hist.Length * .65);
+
+            foreach (var b in LastMark.Hist)
+            {
+                if (x < max)
+                {
+                    g.DrawLine(Pens.OrangeRed, new Point(x, 0), new Point(x, b));
+                }
+                else
+                {
+                    g.DrawLine(Pens.Gray, new Point(x, 0), new Point(x, b));
+                }
+                x += 1;
+            }
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -105,20 +129,7 @@ namespace Omanirial.behavior
             DrawCell(g, scale);
             g.Restore(state);
 
-            if (LastMark != null)
-            {
-                var x = 0;
-
-                foreach (var b in LastMark.Hist)
-                {
-                    g.DrawLine(Pens.Blue, new Point(x, 0), new Point(x, b));
-                    x += 4;
-                    if (1 < x)
-                    {
-                        //return;
-                    }
-                }
-            }
+            //DrawHist(g);
         }
         #endregion
 

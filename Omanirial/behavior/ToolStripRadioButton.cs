@@ -18,6 +18,11 @@ namespace Omanirial.behavior
 
         #region Attributes
         private RadioButton Radio => (RadioButton)Control;
+        public bool Checked
+        {
+            get => Radio.Checked;
+            set => Radio.Checked = value;
+        }
         #endregion
     }
 }

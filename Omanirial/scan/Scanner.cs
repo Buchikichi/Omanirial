@@ -9,15 +9,6 @@ namespace Omanirial.scan
 {
     class Scanner
     {
-        #region メンバー
-        private const int FILE_TYPE_JPEG = 3;
-        private const int MAX_COUNT = 65535;
-
-        private List<PageInfo> fileList = new List<PageInfo>();
-        private AxFiScn fiScan = new AxFiScn();
-        private int HWnd => ParentForm.Handle.ToInt32();
-        #endregion
-
         #region メソッド
         /// <summary>終了処理.</summary>
         private void Conclude()
@@ -48,8 +39,7 @@ namespace Omanirial.scan
 
         public void End()
         {
-            fileList.Clear();
-            Dict.Clear();
+            FileList.Clear();
         }
         #endregion
 
@@ -61,12 +51,13 @@ namespace Omanirial.scan
             fiScan.BlankPageSkip = 0;
             fiScan.Deskew = 0; // 傾き補正 0:Edge
             fiScan.FileType = FILE_TYPE_JPEG;
-            fiScan.PixelType = 2; // RGB
             fiScan.Overwrite = 1;
             fiScan.PaperSupply = 2; // 2:ADF(Duplex)
-            fiScan.Rotation = 1;
+            fiScan.PixelType = 2; // RGB
             fiScan.Resolution = 0; // 0:200dpi
+            fiScan.Rotation = 1;
             fiScan.ShowSourceUI = false;
+            fiScan.SkipWhitePage = 10;
         }
 
         private void SetupEvents()
@@ -74,7 +65,7 @@ namespace Omanirial.scan
             fiScan.ScanToFile += (sender, e) =>
             {
                 Debug.WriteLine($"ScanToFile:{e.scanCount}:{e.fileName}");
-                fileList.Add(new PageInfo(e.fileName));
+                FileList.Add(new PageInfo(e.fileName));
                 Counter++;
                 if (MAX_COUNT < Counter)
                 {
@@ -89,11 +80,17 @@ namespace Omanirial.scan
         }
         #endregion
 
-        #region Properties
+        #region Attributes
+        private const int FILE_TYPE_JPEG = 3;
+        private const int MAX_COUNT = 65535;
+
+        private AxFiScn fiScan = new AxFiScn();
+        private int HWnd => ParentForm.Handle.ToInt32();
+
         public Form ParentForm { get; set; }
         public string ImageDir { get; set; }
         public int Counter { get; set; }
-        public Dictionary<string, PageInfo> Dict { get; } = new Dictionary<string, PageInfo>();
+        public List<PageInfo> FileList { get; } = new List<PageInfo>();
         #endregion
     }
 }

@@ -38,7 +38,7 @@ namespace Omanirial.data
         {
             get
             {
-                if (_timingMarkTop == 0)
+                if (_timingMarkTop == 0 && 0 < TimingMarkList.Count)
                 {
                     var total = 0;
 
@@ -106,7 +106,7 @@ namespace Omanirial.data
 
         public override string ToString()
         {
-            return Path.GetFileName(Filename);;
+            return Path.GetFileName(Filename);
         }
     }
 }

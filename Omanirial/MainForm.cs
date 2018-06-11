@@ -106,6 +106,10 @@ namespace Omanirial
                 Counter = scanCount,
             };
             scanner.Start();
+            foreach (var info in scanner.FileList)
+            {
+                ImageListBox.Items.Add(PageInfo.Create(info.Filename));
+            }
             scanner.End();
             scanCount = scanner.Counter;
         }
@@ -145,8 +149,10 @@ namespace Omanirial
         {
             var layout = LayoutListBox.SelectedItem;
             var canEdit = layout != null;
+            var canSave = 0 < ImageListBox.Items.Count;
 
             EditButton.Enabled = canEdit;
+            SaveButton.Enabled = canSave;
         }
 
         //private void ResetControls()

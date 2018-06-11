@@ -44,11 +44,11 @@
             this.ThresholdBar = new System.Windows.Forms.TrackBar();
             this.ThresholdLabel = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
             this.CursorButton = new Omanirial.behavior.ToolStripRadioButton();
             this.AddItemButton = new Omanirial.behavior.ToolStripRadioButton();
             this.AddItem2Button = new Omanirial.behavior.ToolStripRadioButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
             this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.StatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).BeginInit();
@@ -215,6 +215,35 @@
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // CursorButton
+            // 
+            this.CursorButton.AutoSize = false;
+            this.CursorButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.CursorButton.BackgroundImage = global::Omanirial.Properties.Resources.Cursor_16x;
+            this.CursorButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.CursorButton.Checked = true;
+            this.CursorButton.Name = "CursorButton";
+            this.CursorButton.Size = new System.Drawing.Size(20, 20);
+            // 
+            // AddItemButton
+            // 
+            this.AddItemButton.AutoSize = false;
+            this.AddItemButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.AddItemButton.BackgroundImage = global::Omanirial.Properties.Resources.AddControl;
+            this.AddItemButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.AddItemButton.Checked = false;
+            this.AddItemButton.Name = "AddItemButton";
+            this.AddItemButton.Size = new System.Drawing.Size(20, 20);
+            // 
+            // AddItem2Button
+            // 
+            this.AddItem2Button.AutoSize = false;
+            this.AddItem2Button.BackgroundImage = global::Omanirial.Properties.Resources.AddControl_2;
+            this.AddItem2Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.AddItem2Button.Checked = false;
+            this.AddItem2Button.Name = "AddItem2Button";
+            this.AddItem2Button.Size = new System.Drawing.Size(20, 20);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -231,32 +260,6 @@
             this.ShowGridButton.Size = new System.Drawing.Size(20, 20);
             this.ShowGridButton.Text = "ShowGrid";
             this.ShowGridButton.CheckedChanged += new System.EventHandler(this.ShowGridButton_CheckedChanged);
-            // 
-            // CursorButton
-            // 
-            this.CursorButton.AutoSize = false;
-            this.CursorButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.CursorButton.BackgroundImage = global::Omanirial.Properties.Resources.Cursor_16x;
-            this.CursorButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.CursorButton.Name = "CursorButton";
-            this.CursorButton.Size = new System.Drawing.Size(20, 20);
-            // 
-            // AddItemButton
-            // 
-            this.AddItemButton.AutoSize = false;
-            this.AddItemButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.AddItemButton.BackgroundImage = global::Omanirial.Properties.Resources.AddControl;
-            this.AddItemButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.AddItemButton.Name = "AddItemButton";
-            this.AddItemButton.Size = new System.Drawing.Size(20, 20);
-            // 
-            // AddItem2Button
-            // 
-            this.AddItem2Button.AutoSize = false;
-            this.AddItem2Button.BackgroundImage = global::Omanirial.Properties.Resources.AddControl_2;
-            this.AddItem2Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.AddItem2Button.Name = "AddItem2Button";
-            this.AddItem2Button.Size = new System.Drawing.Size(20, 20);
             // 
             // BasePictureBox
             // 

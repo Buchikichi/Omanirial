@@ -44,9 +44,12 @@ namespace Omanirial.behavior
                     min = (int)dist;
                 }
             }
-            var p = LastMark.Location;
+            if (LastMark != null)
+            {
+                var p = LastMark.Location;
 
-            g.DrawRectangle(Pens.Green, new Rectangle(p.X - r, p.Y - r, w, w));
+                g.DrawRectangle(Pens.Green, new Rectangle(p.X - r, p.Y - r, w, w));
+            }
         }
 
         private void DrawMarks(Graphics g, float scale)

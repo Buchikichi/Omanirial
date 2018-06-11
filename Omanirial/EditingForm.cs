@@ -1,8 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Structure;
 using Omanirial.data;
-using Omanirial.util;
 using System;
 using System.Windows.Forms;
 
@@ -104,6 +102,7 @@ namespace Omanirial
             BasePictureBox.Invalidate();
         }
         #endregion
+
         private void ThresholdBar_Scroll(object sender, EventArgs e)
         {
             var val = ThresholdBar.Value;

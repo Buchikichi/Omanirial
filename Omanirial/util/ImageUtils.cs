@@ -10,6 +10,24 @@ namespace Omanirial.util
 {
     public class ImageUtils
     {
+        public static void RedFilter(Mat img, int redThreshold = 0xe0)
+        {
+            using (var mask = new Mat())
+            {
+                // BGR
+                var lower = new ScalarArray(new MCvScalar(0x90, 0xa0, redThreshold));
+                var upper = new ScalarArray(new MCvScalar(0xff, 0xff, 0xff));
+
+                CvInvoke.InRange(img, lower, upper, mask);
+                //CvInvoke.Imshow("mask", mask);
+                CvInvoke.BitwiseNot(img, img);
+                CvInvoke.BitwiseNot(mask, mask);
+                CvInvoke.CvtColor(mask, mask, ColorConversion.Gray2Bgr);
+                CvInvoke.BitwiseAnd(img, mask, img);
+                CvInvoke.BitwiseNot(img, img);
+            }
+        }
+
         public static void FilterBW(Mat img, int t)
         {
             var lower = new ScalarArray(new MCvScalar(0, 0, 0));

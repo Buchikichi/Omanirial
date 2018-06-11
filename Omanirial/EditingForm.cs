@@ -1,6 +1,8 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 using Omanirial.data;
+using Omanirial.util;
 using System;
 using System.Windows.Forms;
 
@@ -60,8 +62,10 @@ namespace Omanirial
             }
             ThresholdLabel.Text = threshold.ToString();
             ThresholdBar.Value = threshold;
+            //CvInvoke.MedianBlur(img, img, 3);
+
             //ImageUtils.FilterBW(img, threshold);
-            CvInvoke.MedianBlur(img, img, 3);
+            //ImageUtils.RedFilter(img, threshold);
             lastMat?.Dispose();
             lastMat = img;
             BasePictureBox.Page = page;

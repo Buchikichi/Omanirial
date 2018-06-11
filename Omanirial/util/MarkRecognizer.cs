@@ -28,8 +28,9 @@ namespace Omanirial.util
 
             using (var img = new Mat(page.Filename))
             {
-                //ImageUtils.FilterBW(img, page.MarkColorThreshold);
                 CvInvoke.MedianBlur(img, img, 3);
+                //ImageUtils.FilterBW(img, page.MarkColorThreshold);
+                ImageUtils.RedFilter(img);
                 foreach (var mark in page.MarkList)
                 {
                     var pt = mark.Location;

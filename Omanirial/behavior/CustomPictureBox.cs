@@ -82,6 +82,7 @@ namespace Omanirial.behavior
                     y -= Page.MarkPitch;
                 }
             }
+            g.DrawEllipse(Pens.Red, new Rectangle(Page.Width / 2 - 1, Page.TimingMarkTop - 1, 2, 2));
         }
 
         private void DrawHist(Graphics g)

@@ -1,5 +1,6 @@
 ﻿using Omanirial.data;
 using Omanirial.Properties;
+using Omanirial.scan;
 using Omanirial.util;
 using System;
 using System.Diagnostics;
@@ -24,6 +25,32 @@ namespace Omanirial
             }
             return true;
         }
+
+        #region LayoutInfo
+        private void ShowEditingForm()
+        {
+            if (!CheckBaseDir())
+            {
+                return;
+            }
+            var layout = (LayoutInfo)LayoutListBox.SelectedItem;
+            var next = new EditingForm { CurrentLayout = layout };
+
+            Hide();
+            next.ShowDialog(this);
+            Show();
+        }
+
+        private void CreateButton_Click(object sender, EventArgs e)
+        {
+            ShowEditingForm();
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            ShowEditingForm();
+        }
+        #endregion
 
         #region ImageListBox
         private void ImageListBox_DragEnter(object sender, DragEventArgs e)
@@ -67,31 +94,37 @@ namespace Omanirial
         }
         #endregion
 
-        #region Event
-        private void ShowEditingForm()
+        #region Scan
+        private void ScanButton_Click(object sender, EventArgs e)
         {
-            if (!CheckBaseDir())
+            var pref = Preference.Instance;
+            var dir = BaseDirTextBox.Text + Path.DirectorySeparatorChar + pref.TemporaryDir;
+            var scanner = new Scanner
+            {
+                ParentForm = this,
+                ImageDir = dir,
+                Counter = scanCount,
+            };
+            scanner.Start();
+            scanner.End();
+            scanCount = scanner.Counter;
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (ActiveControl is Button)
             {
                 return;
             }
-            var layout = (LayoutInfo)LayoutListBox.SelectedItem;
-            var next = new EditingForm { CurrentLayout = layout };
-
-            Hide();
-            next.ShowDialog(this);
-            Show();
+            if (e.KeyCode != Keys.Space && e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+            ScanButton.PerformClick();
         }
+        #endregion
 
-        private void CreateButton_Click(object sender, EventArgs e)
-        {
-            ShowEditingForm();
-        }
-
-        private void EditButton_Click(object sender, EventArgs e)
-        {
-            ShowEditingForm();
-        }
-
+        #region Event
         private void BaseDirTextBox_DoubleClick(object sender, EventArgs e)
         {
             if (!CheckBaseDir())
@@ -153,6 +186,10 @@ namespace Omanirial
             InitializeComponent();
             Initialize();
         }
+        #endregion
+
+        #region Attributes
+        private int scanCount;
         #endregion
     }
 }

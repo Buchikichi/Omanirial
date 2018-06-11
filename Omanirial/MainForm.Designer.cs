@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.LayoutListBox = new System.Windows.Forms.ComboBox();
             this.ImageListBox = new System.Windows.Forms.ListBox();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -39,27 +38,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Balloon = new System.Windows.Forms.ToolTip(this.components);
             this.BaseDirTextBox = new System.Windows.Forms.TextBox();
+            this.ScanButton = new System.Windows.Forms.Button();
+            this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // BasePictureBox
-            // 
-            this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BasePictureBox.LastMark = null;
-            this.BasePictureBox.Location = new System.Drawing.Point(179, 12);
-            this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
-            this.BasePictureBox.Name = "BasePictureBox";
-            this.BasePictureBox.Page = null;
-            this.BasePictureBox.ShowGrid = false;
-            this.BasePictureBox.ShowMarks = true;
-            this.BasePictureBox.Size = new System.Drawing.Size(817, 656);
-            this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BasePictureBox.TabIndex = 0;
-            this.BasePictureBox.TabStop = false;
             // 
             // LayoutListBox
             // 
@@ -155,12 +137,44 @@
             this.BaseDirTextBox.Text = global::Omanirial.Properties.Settings.Default.BaseDir;
             this.BaseDirTextBox.DoubleClick += new System.EventHandler(this.BaseDirTextBox_DoubleClick);
             // 
+            // ScanButton
+            // 
+            this.ScanButton.BackColor = System.Drawing.Color.Azure;
+            this.ScanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ScanButton.Location = new System.Drawing.Point(13, 674);
+            this.ScanButton.Name = "ScanButton";
+            this.ScanButton.Size = new System.Drawing.Size(75, 30);
+            this.ScanButton.TabIndex = 6;
+            this.ScanButton.Text = "Scan";
+            this.ScanButton.UseVisualStyleBackColor = false;
+            this.ScanButton.Click += new System.EventHandler(this.ScanButton_Click);
+            // 
+            // BasePictureBox
+            // 
+            this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BasePictureBox.LastMark = null;
+            this.BasePictureBox.Location = new System.Drawing.Point(179, 12);
+            this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
+            this.BasePictureBox.Name = "BasePictureBox";
+            this.BasePictureBox.Page = null;
+            this.BasePictureBox.ShowGrid = false;
+            this.BasePictureBox.ShowMarks = true;
+            this.BasePictureBox.Size = new System.Drawing.Size(817, 656);
+            this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BasePictureBox.TabIndex = 0;
+            this.BasePictureBox.TabStop = false;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.ScanButton);
             this.Controls.Add(this.BaseDirTextBox);
             this.Controls.Add(this.StatusBar);
             this.Controls.Add(this.EditButton);
@@ -171,11 +185,13 @@
             this.Controls.Add(this.BasePictureBox);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1024, 768);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -194,6 +210,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox BaseDirTextBox;
         private System.Windows.Forms.ToolTip Balloon;
+        private System.Windows.Forms.Button ScanButton;
     }
 }
 

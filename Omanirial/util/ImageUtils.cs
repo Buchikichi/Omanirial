@@ -27,6 +27,8 @@ namespace Omanirial.util
             var pref = Preference.Instance;
             var top = pref.TimingMarkAreaHeight;
             var bottom = img.Height - top;
+            var left = top;
+            var right = img.Width - top;
             var width = img.Width;
             var height = img.Height;
 
@@ -58,6 +60,10 @@ namespace Omanirial.util
                     {
                         var pt = vec[iy];
 
+                        if (pt.X < left || right < pt.X)
+                        {
+                            break;
+                        }
                         if (pt.Y <= top)
                         {
                             type = TimingMarkType.Top;

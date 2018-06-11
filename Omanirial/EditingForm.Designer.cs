@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditingForm));
             this.CloseButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
@@ -45,9 +44,11 @@
             this.ThresholdBar = new System.Windows.Forms.TrackBar();
             this.ThresholdLabel = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
+            this.CursorButton = new Omanirial.behavior.ToolStripRadioButton();
+            this.AddItemButton = new Omanirial.behavior.ToolStripRadioButton();
+            this.AddItem2Button = new Omanirial.behavior.ToolStripRadioButton();
             this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.StatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RowsUpDown)).BeginInit();
@@ -99,13 +100,13 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(133, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // springLabel
             // 
             this.springLabel.Name = "springLabel";
-            this.springLabel.Size = new System.Drawing.Size(658, 17);
+            this.springLabel.Size = new System.Drawing.Size(673, 17);
             this.springLabel.Spring = true;
             // 
             // ProgressBar
@@ -203,40 +204,59 @@
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
+            this.CursorButton,
+            this.AddItemButton,
+            this.AddItem2Button,
             this.toolStripSeparator1,
             this.ShowGridButton});
-            this.toolStrip1.Location = new System.Drawing.Point(975, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(976, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(33, 707);
+            this.toolStrip1.Size = new System.Drawing.Size(32, 707);
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(29, 6);
             // 
             // ShowGridButton
             // 
             this.ShowGridButton.AutoSize = false;
             this.ShowGridButton.CheckOnClick = true;
             this.ShowGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ShowGridButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowGridButton.Image")));
+            this.ShowGridButton.Image = global::Omanirial.Properties.Resources.AppearanceTabGrid_16x;
             this.ShowGridButton.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.ShowGridButton.Name = "ShowGridButton";
-            this.ShowGridButton.Size = new System.Drawing.Size(32, 32);
-            this.ShowGridButton.Text = "toolStripButton1";
+            this.ShowGridButton.Size = new System.Drawing.Size(20, 20);
+            this.ShowGridButton.Text = "ShowGrid";
             this.ShowGridButton.CheckedChanged += new System.EventHandler(this.ShowGridButton_CheckedChanged);
             // 
-            // toolStripSeparator1
+            // CursorButton
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(30, 6);
+            this.CursorButton.AutoSize = false;
+            this.CursorButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.CursorButton.BackgroundImage = global::Omanirial.Properties.Resources.Cursor_16x;
+            this.CursorButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.CursorButton.Name = "CursorButton";
+            this.CursorButton.Size = new System.Drawing.Size(20, 20);
             // 
-            // toolStripButton1
+            // AddItemButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(30, 20);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.AddItemButton.AutoSize = false;
+            this.AddItemButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.AddItemButton.BackgroundImage = global::Omanirial.Properties.Resources.AddControl;
+            this.AddItemButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.AddItemButton.Name = "AddItemButton";
+            this.AddItemButton.Size = new System.Drawing.Size(20, 20);
+            // 
+            // AddItem2Button
+            // 
+            this.AddItem2Button.AutoSize = false;
+            this.AddItem2Button.BackgroundImage = global::Omanirial.Properties.Resources.AddControl_2;
+            this.AddItem2Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.AddItem2Button.Name = "AddItem2Button";
+            this.AddItem2Button.Size = new System.Drawing.Size(20, 20);
             // 
             // BasePictureBox
             // 
@@ -312,7 +332,9 @@
         private System.Windows.Forms.Label ThresholdLabel;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton ShowGridButton;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private behavior.ToolStripRadioButton CursorButton;
+        private behavior.ToolStripRadioButton AddItemButton;
+        private behavior.ToolStripRadioButton AddItem2Button;
     }
 }

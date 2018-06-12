@@ -49,10 +49,29 @@ namespace Omanirial.behavior
                 var p = LastMark.Location;
 
                 g.DrawRectangle(Pens.Green, new Rectangle(p.X - r, p.Y - r, w, w));
+                DrawScore(g, LastMark, Brushes.DarkBlue);
             }
         }
 
-        private void DrawMarks(Graphics g, float scale)
+        private void DrawScore(Graphics g, MarkInfo mark, Brush brush)
+        {
+            var score = mark.Score;
+
+            if (score == 0)
+            {
+                return;
+            }
+            var pref = Preference.Instance;
+            var pt = mark.Location;
+            var r = pref.MarkRadius;
+
+            using (var font = new Font(FontFamily.GenericMonospace, 14))
+            {
+                g.DrawString(score.ToString(), font, brush, new PointF(pt.X - r, pt.Y - r));
+            }
+        }
+
+        private void DrawMarks(Graphics g)
         {
             var pref = Preference.Instance;
             var r = pref.MarkRadius;
@@ -60,32 +79,38 @@ namespace Omanirial.behavior
 
             foreach (var mark in Page.MarkList)
             {
+                var pt = mark.Location;
+
                 if (500 < mark.Score)
                 {
-                    var pt = mark.Location;
-
                     g.DrawEllipse(Pens.LimeGreen, new Rectangle(pt.X - r, pt.Y - r, w, w));
                 }
+                DrawScore(g, mark, Brushes.MediumPurple);
             }
         }
 
         private void DrawGrid(Graphics g, float scale)
         {
+            var left = Page.Width;
+            var right = 0;
+                var y = Page.MarkAreaBottom - (Page.MarkAreaRows - 1) * Page.MarkPitch;
+
             using (var pen = new Pen(Brushes.LightSkyBlue, .2f))
             {
                 foreach (var pt in Page.TimingMarkList)
                 {
-                    g.DrawLine(pen, new Point(pt.X, 0), pt);
+                    g.DrawLine(pen, new Point(pt.X, y), pt);
+                    left = Math.Min(left, pt.X);
+                    right = Math.Max(right, pt.X);
                 }
-                var y = Page.MarkAreaBottom;
 
                 for (var ix = 0; ix < Page.MarkAreaRows; ix++)
                 {
-                    g.DrawLine(pen, new Point(0, y), new Point(Page.Width - 100, y));
-                    y -= Page.MarkPitch;
+                    g.DrawLine(pen, new Point(left, y), new Point(right, y));
+                    y += Page.MarkPitch;
                 }
             }
-            g.DrawEllipse(Pens.Red, new Rectangle(Page.Width / 2 - 1, Page.TimingMarkTop - 1, 2, 2));
+            g.FillEllipse(Brushes.Red, new Rectangle(Page.Width / 2 - 3, Page.TimingMarkTop - 3, 6, 6));
         }
 
         private void DrawHist(Graphics g)
@@ -132,7 +157,7 @@ namespace Omanirial.behavior
             }
             if (ShowMarks)
             {
-                DrawMarks(g, scale);
+                DrawMarks(g);
             }
             DrawCell(g, scale);
             g.Restore(state);

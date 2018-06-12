@@ -1,9 +1,13 @@
-﻿using AxFiScnLib;
+﻿#define SCAN
+#if SCAN
+using AxFiScnLib;
+#endif
 using Omanirial.data;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using System;
 
 namespace Omanirial.scan
 {
@@ -93,4 +97,37 @@ namespace Omanirial.scan
         public List<PageInfo> FileList { get; } = new List<PageInfo>();
         #endregion
     }
+
+    #region AxFiScn stub
+#if !SCAN
+    class AxFiScn : Control
+    {
+        public string FileName { get; internal set; }
+        public int FileCounter { get; internal set; }
+        public int EndorserCounter { get; internal set; }
+        public Action<object, DummyArgs> ScanToFile { get; internal set; }
+        public bool AutoBorderDetection { get; internal set; }
+        public int Binding { get; internal set; }
+        public int BlankPageSkip { get; internal set; }
+        public int Deskew { get; internal set; }
+        public int FileType { get; internal set; }
+        public int Overwrite { get; internal set; }
+        public int PaperSupply { get; internal set; }
+        public int PixelType { get; internal set; }
+        public int Resolution { get; internal set; }
+        public int Rotation { get; internal set; }
+        public bool ShowSourceUI { get; internal set; }
+        public int SkipWhitePage { get; internal set; }
+
+        internal void OpenScanner(int hWnd) { }
+        internal void StartScan(int hWnd) { }
+        internal void CloseScanner(int hWnd) { }
+    }
+    class DummyArgs
+    {
+        internal string fileName;
+        internal int scanCount;
+    }
+#endif
+    #endregion
 }

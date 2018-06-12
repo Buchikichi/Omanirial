@@ -12,11 +12,14 @@ namespace Omanirial.util
         private int CalcScore(MarkInfo mark)
         {
             var max = (int)(mark.Hist.Length * .65);
+            var multiplicand = mark.Hist.Length;
             var total = 0;
+            var full = 0;
 
-            for (var ix = 0; ix < max; ix++)
+            for (var ix = 0; ix < max; ix++, multiplicand--)
             {
                 total += mark.Hist[ix];
+                full += multiplicand * 255;
             }
             return total;
         }

@@ -48,6 +48,8 @@
             // ImageListBox
             // 
             this.ImageListBox.AllowDrop = true;
+            this.ImageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.ImageListBox.FormattingEnabled = true;
             this.ImageListBox.ItemHeight = 16;
             this.ImageListBox.Location = new System.Drawing.Point(12, 32);
@@ -110,6 +112,7 @@
             // 
             // ScanButton
             // 
+            this.ScanButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ScanButton.BackColor = System.Drawing.Color.Azure;
             this.ScanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ScanButton.Location = new System.Drawing.Point(13, 674);
@@ -122,14 +125,14 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.toolStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LayoutListBox,
             this.AddLayoutButton,
             this.EditLayoutButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1008, 29);
+            this.toolStrip1.Size = new System.Drawing.Size(1008, 28);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -138,9 +141,9 @@
             this.LayoutListBox.AutoSize = false;
             this.LayoutListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.LayoutListBox.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.LayoutListBox.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LayoutListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.LayoutListBox.Name = "LayoutListBox";
-            this.LayoutListBox.Size = new System.Drawing.Size(160, 29);
+            this.LayoutListBox.Size = new System.Drawing.Size(160, 28);
             // 
             // AddLayoutButton
             // 
@@ -148,7 +151,7 @@
             this.AddLayoutButton.Image = global::Omanirial.Properties.Resources.AddLayoutItem_16x;
             this.AddLayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.AddLayoutButton.Name = "AddLayoutButton";
-            this.AddLayoutButton.Size = new System.Drawing.Size(23, 22);
+            this.AddLayoutButton.Size = new System.Drawing.Size(23, 25);
             this.AddLayoutButton.Text = "toolStripButton1";
             this.AddLayoutButton.ToolTipText = "新規レイアウト";
             this.AddLayoutButton.Click += new System.EventHandler(this.AddLayoutButton_Click);
@@ -159,7 +162,7 @@
             this.EditLayoutButton.Image = global::Omanirial.Properties.Resources.EditLayoutTable_16x;
             this.EditLayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.EditLayoutButton.Name = "EditLayoutButton";
-            this.EditLayoutButton.Size = new System.Drawing.Size(23, 22);
+            this.EditLayoutButton.Size = new System.Drawing.Size(23, 25);
             this.EditLayoutButton.Text = "toolStripButton2";
             this.EditLayoutButton.ToolTipText = "レイアウト編集";
             this.EditLayoutButton.Click += new System.EventHandler(this.EditLayoutButton_Click);

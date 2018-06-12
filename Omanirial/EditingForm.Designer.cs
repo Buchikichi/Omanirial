@@ -45,8 +45,10 @@
             this.ThresholdLabel = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.CursorButton = new Omanirial.behavior.ToolStripRadioButton();
+            this.DisableColumnButton = new Omanirial.behavior.ToolStripRadioButton();
             this.AddItemButton = new Omanirial.behavior.ToolStripRadioButton();
             this.AddItem2Button = new Omanirial.behavior.ToolStripRadioButton();
+            this.AddItem3Button = new Omanirial.behavior.ToolStripRadioButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
             this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
@@ -205,8 +207,10 @@
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CursorButton,
+            this.DisableColumnButton,
             this.AddItemButton,
             this.AddItem2Button,
+            this.AddItem3Button,
             this.toolStripSeparator1,
             this.ShowGridButton});
             this.toolStrip1.Location = new System.Drawing.Point(976, 0);
@@ -224,6 +228,17 @@
             this.CursorButton.Checked = true;
             this.CursorButton.Name = "CursorButton";
             this.CursorButton.Size = new System.Drawing.Size(20, 20);
+            this.CursorButton.ToolTipText = "Select";
+            // 
+            // DisableColumnButton
+            // 
+            this.DisableColumnButton.AutoSize = false;
+            this.DisableColumnButton.BackgroundImage = global::Omanirial.Properties.Resources.DeleteColumn_16x;
+            this.DisableColumnButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.DisableColumnButton.Checked = false;
+            this.DisableColumnButton.Name = "DisableColumnButton";
+            this.DisableColumnButton.Size = new System.Drawing.Size(20, 20);
+            this.DisableColumnButton.ToolTipText = "Disable";
             // 
             // AddItemButton
             // 
@@ -234,6 +249,7 @@
             this.AddItemButton.Checked = false;
             this.AddItemButton.Name = "AddItemButton";
             this.AddItemButton.Size = new System.Drawing.Size(20, 20);
+            this.AddItemButton.ToolTipText = "Set mark";
             // 
             // AddItem2Button
             // 
@@ -243,6 +259,17 @@
             this.AddItem2Button.Checked = false;
             this.AddItem2Button.Name = "AddItem2Button";
             this.AddItem2Button.Size = new System.Drawing.Size(20, 20);
+            this.AddItem2Button.ToolTipText = "Set 2 mark";
+            // 
+            // AddItem3Button
+            // 
+            this.AddItem3Button.AutoSize = false;
+            this.AddItem3Button.BackgroundImage = global::Omanirial.Properties.Resources.AddControl_3;
+            this.AddItem3Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.AddItem3Button.Checked = false;
+            this.AddItem3Button.Name = "AddItem3Button";
+            this.AddItem3Button.Size = new System.Drawing.Size(20, 20);
+            this.AddItem3Button.ToolTipText = "Set 3 mark";
             // 
             // toolStripSeparator1
             // 
@@ -259,6 +286,7 @@
             this.ShowGridButton.Name = "ShowGridButton";
             this.ShowGridButton.Size = new System.Drawing.Size(20, 20);
             this.ShowGridButton.Text = "ShowGrid";
+            this.ShowGridButton.ToolTipText = "Show grid";
             this.ShowGridButton.CheckedChanged += new System.EventHandler(this.ShowGridButton_CheckedChanged);
             // 
             // BasePictureBox
@@ -339,5 +367,7 @@
         private behavior.ToolStripRadioButton CursorButton;
         private behavior.ToolStripRadioButton AddItemButton;
         private behavior.ToolStripRadioButton AddItem2Button;
+        private behavior.ToolStripRadioButton DisableColumnButton;
+        private behavior.ToolStripRadioButton AddItem3Button;
     }
 }

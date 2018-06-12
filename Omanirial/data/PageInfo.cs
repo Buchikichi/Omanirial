@@ -84,29 +84,42 @@ namespace Omanirial.data
         }
         #endregion
 
-        public PageInfo(string text)
-        {
-            Filename = text;
-        }
+        #region Begin/End
 
-        public static PageInfo Create(string filename)
-        {
-            var page = new PageInfo(filename);
+        #endregion
+        public override string ToString() => Path.GetFileName(Filename);
 
+        public void DetectTimingMarks(string filename)
+        {
             using (var img = new Mat(filename))
             {
-                page.Width = img.Width;
-                page.Height = img.Height;
-                ImageUtils.FilterBW(img, page.MarkColorThreshold);
-                page.TimingMarkList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
-                page.IsUpsideDown = isUpsideDown;
+                Width = img.Width;
+                Height = img.Height;
+                ImageUtils.FilterBW(img, MarkColorThreshold);
+                TimingMarkList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
+                IsUpsideDown = isUpsideDown;
             }
-            return page;
+            Filename = filename;
         }
 
-        public override string ToString()
+        public PageInfo(string filename)
         {
-            return Path.GetFileName(Filename);
+            DetectTimingMarks(filename);
         }
+
+        //public static PageInfo Create(string filename)
+        //{
+        //    var page = new PageInfo(filename);
+
+        //    using (var img = new Mat(filename))
+        //    {
+        //        page.Width = img.Width;
+        //        page.Height = img.Height;
+        //        ImageUtils.FilterBW(img, page.MarkColorThreshold);
+        //        page.TimingMarkList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
+        //        page.IsUpsideDown = isUpsideDown;
+        //    }
+        //    return page;
+        //}
     }
 }

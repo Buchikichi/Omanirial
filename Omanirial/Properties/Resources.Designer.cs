@@ -113,6 +113,16 @@ namespace Omanirial.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap AddLayoutItem_16x {
+            get {
+                object obj = ResourceManager.GetObject("AddLayoutItem_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap AppearanceTabGrid_16x {
             get {
                 object obj = ResourceManager.GetObject("AppearanceTabGrid_16x", resourceCulture);
@@ -126,6 +136,26 @@ namespace Omanirial.Properties {
         internal static System.Drawing.Bitmap Cursor_16x {
             get {
                 object obj = ResourceManager.GetObject("Cursor_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap DeleteColumn_16x {
+            get {
+                object obj = ResourceManager.GetObject("DeleteColumn_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap EditLayoutTable_16x {
+            get {
+                object obj = ResourceManager.GetObject("EditLayoutTable_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

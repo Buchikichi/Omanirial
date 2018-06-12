@@ -39,7 +39,7 @@ namespace Omanirial
                 {
                     continue;
                 }
-                var page = PageInfo.Create(name);
+                var page = new PageInfo(name);
 
                 PageListView.Nodes.Add(new PageNode(page));
                 CurrentLayout.PageList.Add(page);

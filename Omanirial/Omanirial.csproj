@@ -151,18 +151,8 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="Resources\AddControl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AddControl_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AddControl_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AddControl_4.png" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\EMGU.CV.3.4.1.2976\build\EMGU.CV.targets" Condition="Exists('..\packages\EMGU.CV.3.4.1.2976\build\EMGU.CV.targets')" />

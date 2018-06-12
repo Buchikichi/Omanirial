@@ -29,37 +29,30 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.LayoutListBox = new System.Windows.Forms.ComboBox();
             this.ImageListBox = new System.Windows.Forms.ListBox();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.CreateButton = new System.Windows.Forms.Button();
-            this.EditButton = new System.Windows.Forms.Button();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.label1 = new System.Windows.Forms.Label();
             this.Balloon = new System.Windows.Forms.ToolTip(this.components);
             this.BaseDirTextBox = new System.Windows.Forms.TextBox();
             this.ScanButton = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.LayoutListBox = new System.Windows.Forms.ToolStripComboBox();
+            this.AddLayoutButton = new System.Windows.Forms.ToolStripButton();
+            this.EditLayoutButton = new System.Windows.Forms.ToolStripButton();
             this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // LayoutListBox
-            // 
-            this.LayoutListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.LayoutListBox.FormattingEnabled = true;
-            this.LayoutListBox.Location = new System.Drawing.Point(13, 13);
-            this.LayoutListBox.Name = "LayoutListBox";
-            this.LayoutListBox.Size = new System.Drawing.Size(160, 24);
-            this.LayoutListBox.TabIndex = 1;
             // 
             // ImageListBox
             // 
             this.ImageListBox.AllowDrop = true;
             this.ImageListBox.FormattingEnabled = true;
             this.ImageListBox.ItemHeight = 16;
-            this.ImageListBox.Location = new System.Drawing.Point(13, 79);
+            this.ImageListBox.Location = new System.Drawing.Point(12, 32);
             this.ImageListBox.Name = "ImageListBox";
-            this.ImageListBox.Size = new System.Drawing.Size(160, 580);
+            this.ImageListBox.Size = new System.Drawing.Size(160, 628);
             this.ImageListBox.TabIndex = 4;
             this.ImageListBox.SelectedIndexChanged += new System.EventHandler(this.ImageListBox_SelectedIndexChanged);
             this.ImageListBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.ImageListBox_DragDrop);
@@ -77,28 +70,6 @@
             this.SaveButton.Text = "保存";
             this.SaveButton.UseVisualStyleBackColor = false;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // CreateButton
-            // 
-            this.CreateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CreateButton.Location = new System.Drawing.Point(13, 43);
-            this.CreateButton.Name = "CreateButton";
-            this.CreateButton.Size = new System.Drawing.Size(70, 30);
-            this.CreateButton.TabIndex = 2;
-            this.CreateButton.Text = "新規";
-            this.CreateButton.UseVisualStyleBackColor = true;
-            this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
-            // 
-            // EditButton
-            // 
-            this.EditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EditButton.Location = new System.Drawing.Point(103, 43);
-            this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(70, 30);
-            this.EditButton.TabIndex = 3;
-            this.EditButton.Text = "編集";
-            this.EditButton.UseVisualStyleBackColor = true;
-            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // StatusBar
             // 
@@ -149,6 +120,50 @@
             this.ScanButton.UseVisualStyleBackColor = false;
             this.ScanButton.Click += new System.EventHandler(this.ScanButton_Click);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LayoutListBox,
+            this.AddLayoutButton,
+            this.EditLayoutButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1008, 29);
+            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // LayoutListBox
+            // 
+            this.LayoutListBox.AutoSize = false;
+            this.LayoutListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LayoutListBox.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.LayoutListBox.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LayoutListBox.Name = "LayoutListBox";
+            this.LayoutListBox.Size = new System.Drawing.Size(160, 29);
+            // 
+            // AddLayoutButton
+            // 
+            this.AddLayoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AddLayoutButton.Image = global::Omanirial.Properties.Resources.AddLayoutItem_16x;
+            this.AddLayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AddLayoutButton.Name = "AddLayoutButton";
+            this.AddLayoutButton.Size = new System.Drawing.Size(23, 22);
+            this.AddLayoutButton.Text = "toolStripButton1";
+            this.AddLayoutButton.ToolTipText = "新規レイアウト";
+            this.AddLayoutButton.Click += new System.EventHandler(this.AddLayoutButton_Click);
+            // 
+            // EditLayoutButton
+            // 
+            this.EditLayoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EditLayoutButton.Image = global::Omanirial.Properties.Resources.EditLayoutTable_16x;
+            this.EditLayoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EditLayoutButton.Name = "EditLayoutButton";
+            this.EditLayoutButton.Size = new System.Drawing.Size(23, 22);
+            this.EditLayoutButton.Text = "toolStripButton2";
+            this.EditLayoutButton.ToolTipText = "レイアウト編集";
+            this.EditLayoutButton.Click += new System.EventHandler(this.EditLayoutButton_Click);
+            // 
             // BasePictureBox
             // 
             this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -157,13 +172,13 @@
             this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
             this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.BasePictureBox.LastMark = null;
-            this.BasePictureBox.Location = new System.Drawing.Point(179, 12);
+            this.BasePictureBox.Location = new System.Drawing.Point(179, 32);
             this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
             this.BasePictureBox.Name = "BasePictureBox";
             this.BasePictureBox.Page = null;
             this.BasePictureBox.ShowGrid = false;
             this.BasePictureBox.ShowMarks = true;
-            this.BasePictureBox.Size = new System.Drawing.Size(817, 656);
+            this.BasePictureBox.Size = new System.Drawing.Size(817, 636);
             this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BasePictureBox.TabIndex = 0;
             this.BasePictureBox.TabStop = false;
@@ -174,14 +189,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ScanButton);
             this.Controls.Add(this.BaseDirTextBox);
             this.Controls.Add(this.StatusBar);
-            this.Controls.Add(this.EditButton);
-            this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.ImageListBox);
-            this.Controls.Add(this.LayoutListBox);
             this.Controls.Add(this.BasePictureBox);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -192,6 +205,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -201,16 +216,17 @@
         #endregion
 
         private behavior.CustomPictureBox BasePictureBox;
-        private System.Windows.Forms.ComboBox LayoutListBox;
         private System.Windows.Forms.ListBox ImageListBox;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button CreateButton;
-        private System.Windows.Forms.Button EditButton;
         private System.Windows.Forms.StatusStrip StatusBar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox BaseDirTextBox;
         private System.Windows.Forms.ToolTip Balloon;
         private System.Windows.Forms.Button ScanButton;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripComboBox LayoutListBox;
+        private System.Windows.Forms.ToolStripButton AddLayoutButton;
+        private System.Windows.Forms.ToolStripButton EditLayoutButton;
     }
 }
 

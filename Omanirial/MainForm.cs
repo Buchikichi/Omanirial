@@ -41,15 +41,9 @@ namespace Omanirial
             Show();
         }
 
-        private void CreateButton_Click(object sender, EventArgs e)
-        {
-            ShowEditingForm();
-        }
+        private void AddLayoutButton_Click(object sender, EventArgs e) => ShowEditingForm();
 
-        private void EditButton_Click(object sender, EventArgs e)
-        {
-            ShowEditingForm();
-        }
+        private void EditLayoutButton_Click(object sender, EventArgs e) => ShowEditingForm();
         #endregion
 
         #region ImageListBox
@@ -73,7 +67,7 @@ namespace Omanirial
                 {
                     continue;
                 }
-                ImageListBox.Items.Add(PageInfo.Create(name));
+                ImageListBox.Items.Add(new PageInfo(name));
             }
         }
 
@@ -108,7 +102,7 @@ namespace Omanirial
             scanner.Start();
             foreach (var info in scanner.FileList)
             {
-                ImageListBox.Items.Add(PageInfo.Create(info.Filename));
+                ImageListBox.Items.Add(new PageInfo(info.Filename));
             }
             scanner.End();
             scanCount = scanner.Counter;
@@ -151,7 +145,8 @@ namespace Omanirial
             var canEdit = layout != null;
             var canSave = 0 < ImageListBox.Items.Count;
 
-            EditButton.Enabled = canEdit;
+            LayoutListBox.Enabled = canEdit;
+            EditLayoutButton.Enabled = canEdit;
             SaveButton.Enabled = canSave;
         }
 

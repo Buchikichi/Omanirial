@@ -34,6 +34,10 @@ namespace Omanirial.data
         {
             var list = new List<LayoutInfo>();
 
+            if (!Directory.Exists(LayoutDir))
+            {
+                return list;
+            }
             foreach (var dir in Directory.GetDirectories(LayoutDir))
             {
                 var file = Directory.GetFiles(dir, "*.json")[0];

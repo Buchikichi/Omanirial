@@ -160,11 +160,10 @@
   </data>
   <data name="AddLayoutItem_16x" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACGSURBVDhPnZBBDoAgDAR9lAfPPM+vclAvvWIg7qZUS1WS
-        CUm7OxgnHBEpmmv87qC0rHNDiyJYzjk/ClJKw7sJULTUXUQoqC9ZMKcA6CLYt6MDReD+RFsEty/QAk0N
-        eOgcBXYRgTwFeqHxZoCCUdibdQLghe0MUGAXEchT8BcKYPx6U/APKSeR1ehnKjzRXAAAAABJRU5ErkJg
-        gg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAIZJREFUOE+dkEEOgCAMBH2UB888z69yUC+9YiDuplRLVZIJSbs7GCccESmaa/zu
+        oLSsc0OLIljOOT8KUkrDuwlQtNRdRCioL1kwpwDoIti3owNF4P5EWwS3L9ACTQ146BwFdhGBPAV6ofFm
+        gIJR2Jt1AuCF7QxQYBcRyFPwFwpg/HpT8A8pJ5HV6GcqPNFcAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="AppearanceTabGrid_16x" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -193,12 +192,11 @@
   </data>
   <data name="EditLayoutTable_16x" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAADHSURBVDhPnZCxDcIwEEU9EUO4d0XLFEzCAKzACsxAYRoW
-        SGGkhMJuD33LHxznRGIsfV3Ouv/uxwZHRExKaYTw3XVoPpyuAnVDaDb7MwF9kGZ7rrvjRYbnRNhP1f+f
-        zUgCEeKcy4PWWrXmFITARAAht/tDQgh5WFMG4BTILAUhuMdGiv0CgE3e+xmEbxNjlGl8fYxUsX8TcACb
-        aWatAWoCXNTCIzINepg2J1jTagJu42DbU8W+TNAatF4F9KrY9QRbarH/myDJG5t+iGd1TBG7AAAAAElF
-        TkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAMdJREFUOE+dkLENwjAQRT0RQ7h3RcsUTMIArMAKzEBhGhZIYaSEwm4PfcsfHOdE
+        Yix9Xc66/+7HBkdETEpphPDddWg+nK4CdUNoNvszAX2QZnuuu+NFhudE2E/V/5/NSAIR4pzLg9ZateYU
+        hMBEACG3+0NCCHlYUwbgFMgsBSG4x0aK/QKATd77GYRvE2OUaXx9jFSxfxNwAJtpZq0BagJc1MIjMg16
+        mDYnWNNqAm7jYNtTxb5M0Bq0XgX0qtj1BFtqsf+bIMkbm36IZ3VMEbsAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="RadioButton_16x" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -209,6 +207,16 @@
         03GWy/kaQU5NTegt1mE/RlSxCmuoCb1okjwaPE7Xk6fpEAWAnBqcToEmye8GEKA+DeRTaQ1NWGPTZBDF
         BA+tK7RdYvNrJILj7x+SBgTujJgbkVODeyvWYDT2C4gXleHzz/R9dN0N08LyMe4LvA0AAAAASUVORK5C
         YII=
+</value>
+  </data>
+  <data name="ShowDetails_16x" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADfSURBVDhPnZLrDYMwDIQzQmdiCgZggI5QiS5BxQxlA1bo
+        CB0hrRD8TflQHBIwlPakk2KffXEeJkbf95eu657DMDgh8Zg/+xId1trTWPxo29YVReGyLAskJo9OnW9J
+        gVjX9dSQ57mrqlsgMXl06nzLDMZmB4rK8upe9r0ieXQ/SULDGRmTnaSBYo3U0STxZCAJxv1mAGVnWQeD
+        5t6sDCSG6LsG2gSxAbpqsHcHsQG63EFiwCdZvsLSQHuFYADGRfIPxED5B7rBwZ+4bSDgOMvCLaoGQMQj
+        3DT4hb7tXxjzAWC5Z/P/rc4fAAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

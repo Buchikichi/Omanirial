@@ -85,7 +85,10 @@ namespace Omanirial.behavior
                 {
                     g.DrawEllipse(Pens.LimeGreen, new Rectangle(pt.X - r, pt.Y - r, w, w));
                 }
-                DrawScore(g, mark, Brushes.MediumPurple);
+                if (ShowScore)
+                {
+                    DrawScore(g, mark, Brushes.MediumPurple);
+                }
             }
         }
 
@@ -93,7 +96,7 @@ namespace Omanirial.behavior
         {
             var left = Page.Width;
             var right = 0;
-                var y = Page.MarkAreaBottom - (Page.MarkAreaRows - 1) * Page.MarkPitch;
+            var y = Page.MarkAreaBottom - (Page.MarkAreaRows - 1) * Page.MarkPitch;
 
             using (var pen = new Pen(Brushes.LightSkyBlue, .2f))
             {
@@ -190,6 +193,7 @@ namespace Omanirial.behavior
 
         public bool ShowGrid { get; set; }
         public bool ShowMarks { get; set; }
+        public bool ShowScore { get; set; }
         #endregion
     }
 }

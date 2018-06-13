@@ -85,8 +85,6 @@ namespace Omanirial.data
         #endregion
 
         #region Begin/End
-
-        #endregion
         public override string ToString() => Path.GetFileName(Filename);
 
         public void DetectTimingMarks(string filename)
@@ -106,20 +104,6 @@ namespace Omanirial.data
         {
             DetectTimingMarks(filename);
         }
-
-        //public static PageInfo Create(string filename)
-        //{
-        //    var page = new PageInfo(filename);
-
-        //    using (var img = new Mat(filename))
-        //    {
-        //        page.Width = img.Width;
-        //        page.Height = img.Height;
-        //        ImageUtils.FilterBW(img, page.MarkColorThreshold);
-        //        page.TimingMarkList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
-        //        page.IsUpsideDown = isUpsideDown;
-        //    }
-        //    return page;
-        //}
+        #endregion
     }
 }

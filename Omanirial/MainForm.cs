@@ -123,6 +123,17 @@ namespace Omanirial
         #endregion
 
         #region Event
+        private void ShowGridButton_Click(object sender, EventArgs e)
+        {
+            BasePictureBox.ShowGrid = ShowGridButton.Checked;
+            BasePictureBox.Invalidate();
+        }
+
+        private void ShowScoreButton_Click(object sender, EventArgs e)
+        {
+            BasePictureBox.ShowScore = ShowScoreButton.Checked;
+            BasePictureBox.Invalidate();
+        }
         private void BaseDirTextBox_DoubleClick(object sender, EventArgs e)
         {
             if (!CheckBaseDir())

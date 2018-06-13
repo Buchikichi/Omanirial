@@ -12,7 +12,6 @@ namespace Omanirial.data
     {
         #region Attributes
         private int _timingMarkTop;
-        private List<MarkInfo> _markList;
 
         [DataMember]
         public string Filename { get; set; }
@@ -22,6 +21,8 @@ namespace Omanirial.data
         public int Height { get; set; }
         [DataMember]
         public List<Point> TimingMarkList { get; set; } = new List<Point>();
+        [DataMember]
+        public List<MarkInfo> MarkList { get; set; } = new List<MarkInfo>();
         [DataMember]
         public bool IsUpsideDown { get; set; }
         [DataMember]
@@ -51,41 +52,55 @@ namespace Omanirial.data
                 return _timingMarkTop;
             }
         }
-        public List<MarkInfo> MarkList
+        #endregion
+
+        #region Method
+        public MarkInfo FindMark(Point pt)
         {
-            get
+            MarkInfo result = null;
+            var pref = Preference.Instance;
+            var r = pref.MarkRadius;
+            var w = r * 2;
+
+            foreach (var mark in MarkList)
             {
-                if (_markList != null && 0 < _markList.Count)
-                {
-                    return _markList;
-                }
-                var y = MarkAreaBottom;
+                var rect = new Rectangle(mark.Location.X - r, mark.Location.Y - MarkPitch / 2, w, MarkPitch);
 
-                _markList = new List<MarkInfo>();
-                for (var ix = 0; ix < MarkAreaRows; ix++)
+                if (rect.Contains(pt))
                 {
-                    foreach (var pt in TimingMarkList)
-                    {
-                        _markList.Add(new MarkInfo { Location = new Point(pt.X, y) });
-                    }
-                    y -= MarkPitch;
+                    result = mark;
+                    break;
                 }
-                _markList.Sort((m1, m2) =>
-                {
-                    var p1 = m1.Location;
-                    var p2 = m2.Location;
-                    var v1 = p1.X + p1.Y * Width;
-                    var v2 = p2.X + p2.Y * Height;
-
-                    return v1 - v2;
-                });
-                return _markList;
             }
+            return result;
         }
         #endregion
 
         #region Begin/End
         public override string ToString() => Path.GetFileName(Filename);
+
+        public void SetupMarkList()
+        {
+            var y = MarkAreaBottom;
+
+            for (var ix = 0; ix < MarkAreaRows; ix++)
+            {
+                foreach (var pt in TimingMarkList)
+                {
+                    MarkList.Add(new MarkInfo { Location = new Point(pt.X, y) });
+                }
+                y -= MarkPitch;
+            }
+            MarkList.Sort((m1, m2) =>
+            {
+                var p1 = m1.Location;
+                var p2 = m2.Location;
+                var v1 = p1.X + p1.Y * Width;
+                var v2 = p2.X + p2.Y * Height;
+
+                return v1 - v2;
+            });
+        }
 
         public void DetectTimingMarks(string filename)
         {
@@ -97,6 +112,7 @@ namespace Omanirial.data
                 TimingMarkList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
                 IsUpsideDown = isUpsideDown;
             }
+            SetupMarkList();
             Filename = filename;
         }
 

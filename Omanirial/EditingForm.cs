@@ -2,6 +2,7 @@
 using Emgu.CV.CvEnum;
 using Omanirial.data;
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Omanirial
@@ -96,6 +97,11 @@ namespace Omanirial
         #endregion
 
         #region ToolBar
+        private void ToolChanged(object sender, EventArgs e)
+        {
+            Debug.Print("ToolChanged");
+        }
+
         private void ShowGridButton_CheckedChanged(object sender, EventArgs e)
         {
             BasePictureBox.ShowGrid = ShowGridButton.Checked;
@@ -159,6 +165,12 @@ namespace Omanirial
                 CurrentLayout.Name = TitleTextBox.Text;
                 RefreshControls();
             };
+            // ToolBox
+            CursorButton.Click += ToolChanged;
+            DisableColumnButton.Click += ToolChanged;
+            AddItemButton.Click += ToolChanged;
+            AddItem2Button.Click += ToolChanged;
+            AddItem3Button.Click += ToolChanged;
         }
 
         public EditingForm()

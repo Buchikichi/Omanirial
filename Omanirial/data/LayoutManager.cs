@@ -55,7 +55,7 @@ namespace Omanirial.data
             var serializer = new DataContractJsonSerializer(typeof(LayoutInfo));
 
             Directory.CreateDirectory(baseDir);
-            using (var stream = new FileStream(filename, FileMode.OpenOrCreate))
+            using (var stream = new FileStream(filename, FileMode.Create))
             {
                 serializer.WriteObject(stream, layout);
             }

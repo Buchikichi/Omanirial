@@ -8,56 +8,82 @@ namespace Omanirial.behavior
 {
     public partial class CustomPictureBox : PictureBox
     {
-        #region Paint
-        private float CalcScale(Graphics g)
+        private void PutMarkAttribute(MarkInfo mark)
         {
-            var bounds = g.VisibleClipBounds;
-            var scaleH = bounds.Width / Page.Width;
-            var scaleV = bounds.Height / Page.Height;
-
-            return Math.Min(scaleH, scaleV);
-        }
-
-        private void DrawCell(Graphics g, float scale)
-        {
-            if (!MousePt.HasValue)
+            if (!drawBegan || mark == null || mark == lastMark)
             {
                 return;
             }
-            var topMargin = (Height / scale - Page.Height) / 2;
-            var leftMargin = (Width / scale - Page.Width) / 2;
+            lastMark = mark;
+
+            mark.Disabled = !mark.Disabled;
+        }
+
+        #region Paint
+        private void DrawHist(Graphics g, MarkInfo mark)
+        {
+            if (mark == null || mark.Hist == null)
+            {
+                return;
+            }
+            var x = 0;
+            var max = (int)(mark.Hist.Length * .65);
+
+            foreach (var b in mark.Hist)
+            {
+                if (x < max)
+                {
+                    g.DrawLine(Pens.OrangeRed, new Point(x, 0), new Point(x, b));
+                }
+                else
+                {
+                    g.DrawLine(Pens.Gray, new Point(x, 0), new Point(x, b));
+                }
+                x += 1;
+            }
+        }
+
+        private void DrawCell(Graphics g, MarkInfo mark)
+        {
+            if (mark == null)
+            {
+                return;
+            }
             var pref = Preference.Instance;
             var r = pref.MarkRadius;
             var w = r * 2;
-            var mx = (int)(MousePt.Value.X / scale - leftMargin);
-            var my = (int)(MousePt.Value.Y / scale - topMargin);
-            var min = int.MaxValue;
+            var p = mark.Location;
+
+            using (var brush = new SolidBrush(Color.FromArgb(0x40, Color.Green)))
+            {
+                g.FillRectangle(brush, new Rectangle(p.X - r, p.Y - r, w, w));
+            }
+            g.DrawRectangle(Pens.Green, new Rectangle(p.X - r, p.Y - r, w, w));
+        }
+
+        private void DrawAttributes(Graphics g)
+        {
+            var pref = Preference.Instance;
+            var r = pref.MarkRadius;
+            var w = r * 2;
 
             foreach (var mark in Page.MarkList)
             {
                 var pt = mark.Location;
-                var dist = Math.Pow(pt.X - mx, 2) + Math.Pow(pt.Y - my, 2);
 
-                if (dist < min)
+                if (mark.Disabled)
                 {
-                    LastMark = mark;
-                    min = (int)dist;
+                    using (var brush = new SolidBrush(Color.FromArgb(0x40, Color.Gray)))
+                    {
+                        g.FillRectangle(brush, new Rectangle(pt.X - r, pt.Y - r, w, w));
+                    }
                 }
-            }
-            if (LastMark != null)
-            {
-                var p = LastMark.Location;
-
-                g.DrawRectangle(Pens.Green, new Rectangle(p.X - r, p.Y - r, w, w));
-                DrawScore(g, LastMark, Brushes.DarkBlue);
             }
         }
 
         private void DrawScore(Graphics g, MarkInfo mark, Brush brush)
         {
-            var score = mark.Score;
-
-            if (score == 0)
+            if (mark == null || mark.Score == 0)
             {
                 return;
             }
@@ -67,18 +93,26 @@ namespace Omanirial.behavior
 
             using (var font = new Font(FontFamily.GenericMonospace, 14))
             {
-                g.DrawString(score.ToString(), font, brush, new PointF(pt.X - r, pt.Y - r));
+                g.DrawString(mark.Score.ToString(), font, brush, new PointF(pt.X - r, pt.Y - r));
             }
         }
 
         private void DrawMarks(Graphics g)
         {
+            if (!ShowMarks)
+            {
+                return;
+            }
             var pref = Preference.Instance;
             var r = pref.MarkRadius;
             var w = r * 2;
 
             foreach (var mark in Page.MarkList)
             {
+                if (mark.Disabled)
+                {
+                    continue;
+                }
                 var pt = mark.Location;
 
                 if (500 < mark.Score)
@@ -116,27 +150,27 @@ namespace Omanirial.behavior
             g.FillEllipse(Brushes.Red, new Rectangle(Page.Width / 2 - 3, Page.TimingMarkTop - 3, 6, 6));
         }
 
-        private void DrawHist(Graphics g)
+        private MarkInfo FindMark()
         {
-            if (LastMark == null)
+            if (!MousePt.HasValue)
             {
-                return;
+                return null;
             }
-            var x = 0;
-            var max = (int)(LastMark.Hist.Length * .65);
+            var scale = CalcScale();
+            var topMargin = (Height / scale - Page.Height) / 2;
+            var leftMargin = (Width / scale - Page.Width) / 2;
+            var mx = (int)(MousePt.Value.X / scale - leftMargin);
+            var my = (int)(MousePt.Value.Y / scale - topMargin);
 
-            foreach (var b in LastMark.Hist)
-            {
-                if (x < max)
-                {
-                    g.DrawLine(Pens.OrangeRed, new Point(x, 0), new Point(x, b));
-                }
-                else
-                {
-                    g.DrawLine(Pens.Gray, new Point(x, 0), new Point(x, b));
-                }
-                x += 1;
-            }
+            return Page.FindMark(new Point(mx, my));
+        }
+
+        private float CalcScale()
+        {
+            var scaleH = (float)Width / Page.Width;
+            var scaleV = (float)Height / Page.Height;
+
+            return Math.Min(scaleH, scaleV);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -148,24 +182,25 @@ namespace Omanirial.behavior
             }
             var g = e.Graphics;
             var state = g.Save();
-            var scale = CalcScale(g);
+            var scale = CalcScale();
             var topMargin = (Height / scale - Page.Height) / 2;
             var leftMargin = (Width / scale - Page.Width) / 2;
+            var mark = FindMark();
 
+            PutMarkAttribute(mark);
             g.ScaleTransform(scale, scale);
             g.TranslateTransform(leftMargin, topMargin);
             if (ShowGrid)
             {
                 DrawGrid(g, scale);
             }
-            if (ShowMarks)
-            {
-                DrawMarks(g);
-            }
-            DrawCell(g, scale);
+            DrawAttributes(g);
+            DrawMarks(g);
+            DrawCell(g, mark);
+            DrawScore(g, mark, Brushes.DarkBlue);
             g.Restore(state);
 
-            //DrawHist(g);
+            DrawHist(g, mark);
         }
         #endregion
 
@@ -173,23 +208,61 @@ namespace Omanirial.behavior
         public CustomPictureBox()
         {
             InitializeComponent();
+            MouseDown += (sender, e) =>
+            {
+                MousePt = e.Location;
+                drawBegan = true;
+                Invalidate();
+            };
             MouseMove += (sender, e) =>
             {
                 MousePt = e.Location;
                 Invalidate();
             };
+            MouseUp += (sender, e) =>
+            {
+                MousePt = null;
+                drawBegan = false;
+                Invalidate();
+            };
             MouseLeave += (sender, e) =>
             {
                 MousePt = null;
+                drawBegan = false;
                 Invalidate();
             };
         }
         #endregion
 
         #region Members
-        public PageInfo Page { get; set; }
+        private bool drawBegan;
+        private PageInfo _page;
+        private MarkInfo lastMark;
+
+        public PageInfo Page
+        {
+            internal get => _page;
+            set
+            {
+                if (_page == value)
+                {
+                    return;
+                }
+                _page = value;
+                Image?.Dispose();
+                if (_page == null)
+                {
+                    Image = null;
+                }
+                else
+                {
+                    Image = Image.FromFile(_page.Filename);
+                }
+            }
+        }
         public Point? MousePt { get; set; }
-        public MarkInfo LastMark { get; set; }
+
+        public bool PutMask { get; set; }
 
         public bool ShowGrid { get; set; }
         public bool ShowMarks { get; set; }

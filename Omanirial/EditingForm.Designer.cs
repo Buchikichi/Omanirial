@@ -294,7 +294,6 @@
             this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.BasePictureBox.LastMark = null;
             this.BasePictureBox.Location = new System.Drawing.Point(184, 42);
             this.BasePictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.BasePictureBox.MousePt = null;
@@ -302,6 +301,7 @@
             this.BasePictureBox.Page = null;
             this.BasePictureBox.ShowGrid = false;
             this.BasePictureBox.ShowMarks = false;
+            this.BasePictureBox.ShowScore = false;
             this.BasePictureBox.Size = new System.Drawing.Size(787, 625);
             this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BasePictureBox.TabIndex = 0;

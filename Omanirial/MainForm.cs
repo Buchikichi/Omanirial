@@ -47,6 +47,40 @@ namespace Omanirial
         #endregion
 
         #region ImageListBox
+        private void AddPage(string filename)
+        {
+            var newPage = new PageInfo(filename);
+            var layout = (LayoutInfo)LayoutListBox.SelectedItem;
+
+            ImageListBox.Items.Add(newPage);
+            if (layout == null)
+            {
+                return;
+            }
+            var srcPage = layout.PageList[0];
+
+            foreach (var mark in newPage.MarkList)
+            {
+                var srcMark = srcPage.FindMark(mark.Location);
+
+                if (srcMark != null)
+                {
+                    mark.Disabled = srcMark.Disabled;
+                }
+            }
+            //if (srcPage.MarkList.Count != newPage.MarkList.Count)
+            //{
+            //    return;
+            //}
+            //for (var ix = 0; ix < srcPage.MarkList.Count; ix++)
+            //{
+            //    var src = srcPage.MarkList[ix];
+            //    var dst = newPage.MarkList[ix];
+
+            //    dst.Disabled = src.Disabled;
+            //}
+        }
+
         private void ImageListBox_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.None;
@@ -67,7 +101,7 @@ namespace Omanirial
                 {
                     continue;
                 }
-                ImageListBox.Items.Add(new PageInfo(name));
+                AddPage(name);
             }
         }
 
@@ -83,8 +117,22 @@ namespace Omanirial
 
             recognizer.Recognize(page);
             BasePictureBox.Page = page;
-            BasePictureBox.Image?.Dispose();
-            BasePictureBox.Image = Image.FromFile(page.Filename);
+        }
+
+        private void ImageListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Delete)
+            {
+                return;
+            }
+            var page = (PageInfo)ImageListBox.SelectedItem;
+
+            if (page == null)
+            {
+                return;
+            }
+            ImageListBox.Items.Remove(page);
+            RefreshControls();
         }
         #endregion
 
@@ -102,7 +150,7 @@ namespace Omanirial
             scanner.Start();
             foreach (var info in scanner.FileList)
             {
-                ImageListBox.Items.Add(new PageInfo(info.Filename));
+                AddPage(info.Filename);
             }
             scanner.End();
             scanCount = scanner.Counter;
@@ -155,9 +203,12 @@ namespace Omanirial
             var layout = LayoutListBox.SelectedItem;
             var canEdit = layout != null;
             var canSave = 0 < ImageListBox.Items.Count;
+            var page = (PageInfo)ImageListBox.SelectedItem;
 
+            BasePictureBox.Page = page;
             LayoutListBox.Enabled = canEdit;
             EditLayoutButton.Enabled = canEdit;
+            ScanButton.Enabled = canEdit;
             SaveButton.Enabled = canSave;
         }
 

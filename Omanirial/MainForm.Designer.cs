@@ -38,12 +38,12 @@
             this.ScanButton = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.LayoutListBox = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.AddLayoutButton = new System.Windows.Forms.ToolStripButton();
             this.EditLayoutButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
-            this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.ShowScoreButton = new System.Windows.Forms.ToolStripButton();
+            this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -62,6 +62,7 @@
             this.ImageListBox.SelectedIndexChanged += new System.EventHandler(this.ImageListBox_SelectedIndexChanged);
             this.ImageListBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.ImageListBox_DragDrop);
             this.ImageListBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.ImageListBox_DragEnter);
+            this.ImageListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ImageListBox_KeyDown);
             // 
             // SaveButton
             // 
@@ -151,11 +152,6 @@
             this.LayoutListBox.Name = "LayoutListBox";
             this.LayoutListBox.Size = new System.Drawing.Size(160, 28);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
-            // 
             // AddLayoutButton
             // 
             this.AddLayoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -178,6 +174,11 @@
             this.EditLayoutButton.ToolTipText = "レイアウト編集";
             this.EditLayoutButton.Click += new System.EventHandler(this.EditLayoutButton_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            // 
             // ShowGridButton
             // 
             this.ShowGridButton.CheckOnClick = true;
@@ -186,27 +187,8 @@
             this.ShowGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ShowGridButton.Name = "ShowGridButton";
             this.ShowGridButton.Size = new System.Drawing.Size(23, 25);
-            this.ShowGridButton.Text = "toolStripButton1";
+            this.ShowGridButton.Text = "グリッド表示";
             this.ShowGridButton.Click += new System.EventHandler(this.ShowGridButton_Click);
-            // 
-            // BasePictureBox
-            // 
-            this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BasePictureBox.LastMark = null;
-            this.BasePictureBox.Location = new System.Drawing.Point(179, 32);
-            this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
-            this.BasePictureBox.Name = "BasePictureBox";
-            this.BasePictureBox.Page = null;
-            this.BasePictureBox.ShowGrid = false;
-            this.BasePictureBox.ShowMarks = true;
-            this.BasePictureBox.Size = new System.Drawing.Size(817, 636);
-            this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BasePictureBox.TabIndex = 0;
-            this.BasePictureBox.TabStop = false;
             // 
             // ShowScoreButton
             // 
@@ -216,8 +198,28 @@
             this.ShowScoreButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ShowScoreButton.Name = "ShowScoreButton";
             this.ShowScoreButton.Size = new System.Drawing.Size(23, 25);
-            this.ShowScoreButton.Text = "toolStripButton1";
+            this.ShowScoreButton.Text = "スコア表示";
             this.ShowScoreButton.Click += new System.EventHandler(this.ShowScoreButton_Click);
+            // 
+            // BasePictureBox
+            // 
+            this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BasePictureBox.Location = new System.Drawing.Point(179, 32);
+            this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
+            this.BasePictureBox.Name = "BasePictureBox";
+            this.BasePictureBox.Page = null;
+            this.BasePictureBox.PutMask = false;
+            this.BasePictureBox.ShowGrid = false;
+            this.BasePictureBox.ShowMarks = true;
+            this.BasePictureBox.ShowScore = false;
+            this.BasePictureBox.Size = new System.Drawing.Size(817, 636);
+            this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BasePictureBox.TabIndex = 0;
+            this.BasePictureBox.TabStop = false;
             // 
             // MainForm
             // 

@@ -8,16 +8,59 @@ namespace Omanirial.behavior
 {
     public partial class CustomPictureBox : PictureBox
     {
+        #region MarkAttribute
+        private void PutMaskAttribute(MarkInfo mark)
+        {
+            if (lastMark == null || lastMark == mark)
+            {
+                mark.Disabled = drawBegan.Value;
+                return;
+            }
+            var pref = Preference.Instance;
+            var r = pref.MarkRadius;
+            var px = (float)lastPt.Value.X;
+            var py = (float)lastPt.Value.Y;
+            var dx = mousePt.Value.X - px;
+            var dy = mousePt.Value.Y - py;
+            var sx = dx / r;
+            var sy = dy / r;
+
+            while (true)
+            {
+                px += sx;
+                py += sy;
+                var mk = FindMark(new Point((int)px, (int)py));
+
+                if (mk == lastMark)
+                {
+                    continue;
+                }
+                if (mk == null)
+                {
+                    break;
+                }
+                mk.Disabled = drawBegan.Value;
+                if (mk == mark)
+                {
+                    break;
+                }
+            }
+        }
+
         private void PutMarkAttribute(MarkInfo mark)
         {
-            if (!drawBegan || mark == null || mark == lastMark)
+            if (drawBegan == null || mark == null || mark == lastMark)
             {
                 return;
             }
+            if (PutMask)
+            {
+                PutMaskAttribute(mark);
+            }
+            lastPt = mousePt;
             lastMark = mark;
-
-            mark.Disabled = !mark.Disabled;
         }
+        #endregion
 
         #region Paint
         private void DrawHist(Graphics g, MarkInfo mark)
@@ -54,7 +97,7 @@ namespace Omanirial.behavior
             var w = r * 2;
             var p = mark.Location;
 
-            using (var brush = new SolidBrush(Color.FromArgb(0x40, Color.Green)))
+            using (var brush = new SolidBrush(Color.FromArgb(0x20, Color.Green)))
             {
                 g.FillRectangle(brush, new Rectangle(p.X - r, p.Y - r, w, w));
             }
@@ -73,7 +116,7 @@ namespace Omanirial.behavior
 
                 if (mark.Disabled)
                 {
-                    using (var brush = new SolidBrush(Color.FromArgb(0x40, Color.Gray)))
+                    using (var brush = new SolidBrush(Color.FromArgb(0x30, Color.Gray)))
                     {
                         g.FillRectangle(brush, new Rectangle(pt.X - r, pt.Y - r, w, w));
                     }
@@ -150,17 +193,17 @@ namespace Omanirial.behavior
             g.FillEllipse(Brushes.Red, new Rectangle(Page.Width / 2 - 3, Page.TimingMarkTop - 3, 6, 6));
         }
 
-        private MarkInfo FindMark()
+        private MarkInfo FindMark(Point? pt)
         {
-            if (!MousePt.HasValue)
+            if (!pt.HasValue)
             {
                 return null;
             }
             var scale = CalcScale();
             var topMargin = (Height / scale - Page.Height) / 2;
             var leftMargin = (Width / scale - Page.Width) / 2;
-            var mx = (int)(MousePt.Value.X / scale - leftMargin);
-            var my = (int)(MousePt.Value.Y / scale - topMargin);
+            var mx = (int)(pt.Value.X / scale - leftMargin);
+            var my = (int)(pt.Value.Y / scale - topMargin);
 
             return Page.FindMark(new Point(mx, my));
         }
@@ -185,7 +228,7 @@ namespace Omanirial.behavior
             var scale = CalcScale();
             var topMargin = (Height / scale - Page.Height) / 2;
             var leftMargin = (Width / scale - Page.Width) / 2;
-            var mark = FindMark();
+            var mark = FindMark(mousePt);
 
             PutMarkAttribute(mark);
             g.ScaleTransform(scale, scale);
@@ -205,39 +248,50 @@ namespace Omanirial.behavior
         #endregion
 
         #region Begin/End
-        public CustomPictureBox()
+        private void MouseEnd()
         {
-            InitializeComponent();
+            mousePt = null;
+            lastPt = null;
+            lastMark = null;
+            drawBegan = null;
+            Invalidate();
+        }
+
+        private void InitializeMouse()
+        {
             MouseDown += (sender, e) =>
             {
-                MousePt = e.Location;
-                drawBegan = true;
+                mousePt = e.Location;
+                var mark = FindMark(mousePt);
+
+                if (mark != null)
+                {
+                    drawBegan = !mark.Disabled;
+                }
                 Invalidate();
             };
             MouseMove += (sender, e) =>
             {
-                MousePt = e.Location;
+                mousePt = e.Location;
                 Invalidate();
             };
-            MouseUp += (sender, e) =>
-            {
-                MousePt = null;
-                drawBegan = false;
-                Invalidate();
-            };
-            MouseLeave += (sender, e) =>
-            {
-                MousePt = null;
-                drawBegan = false;
-                Invalidate();
-            };
+            MouseUp += (sender, e) => MouseEnd();
+            MouseLeave += (sender, e) => MouseEnd();
+        }
+
+        public CustomPictureBox()
+        {
+            InitializeComponent();
+            InitializeMouse();
         }
         #endregion
 
         #region Members
-        private bool drawBegan;
+        private bool? drawBegan;
         private PageInfo _page;
         private MarkInfo lastMark;
+        private Point? mousePt;
+        private Point? lastPt;
 
         public PageInfo Page
         {
@@ -260,7 +314,6 @@ namespace Omanirial.behavior
                 }
             }
         }
-        public Point? MousePt { get; set; }
 
         public bool PutMask { get; set; }
 

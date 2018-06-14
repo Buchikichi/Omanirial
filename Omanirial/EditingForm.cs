@@ -100,6 +100,7 @@ namespace Omanirial
         private void ToolChanged(object sender, EventArgs e)
         {
             Debug.Print("ToolChanged");
+            BasePictureBox.PutMask = DisableColumnButton.Checked;
         }
 
         private void ShowGridButton_CheckedChanged(object sender, EventArgs e)

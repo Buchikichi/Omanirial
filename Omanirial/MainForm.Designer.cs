@@ -209,7 +209,6 @@
             this.BasePictureBox.BackColor = System.Drawing.Color.Transparent;
             this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.BasePictureBox.Location = new System.Drawing.Point(179, 32);
-            this.BasePictureBox.MousePt = new System.Drawing.Point(0, 0);
             this.BasePictureBox.Name = "BasePictureBox";
             this.BasePictureBox.Page = null;
             this.BasePictureBox.PutMask = false;

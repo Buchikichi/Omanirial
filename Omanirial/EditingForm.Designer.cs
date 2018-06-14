@@ -296,7 +296,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BasePictureBox.Location = new System.Drawing.Point(184, 42);
             this.BasePictureBox.Margin = new System.Windows.Forms.Padding(4);
-            this.BasePictureBox.MousePt = null;
             this.BasePictureBox.Name = "BasePictureBox";
             this.BasePictureBox.Page = null;
             this.BasePictureBox.ShowGrid = false;

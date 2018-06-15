@@ -74,6 +74,8 @@
     </Compile>
     <Compile Include="data\LayoutInfo.cs" />
     <Compile Include="data\LayoutManager.cs" />
+    <Compile Include="data\MarkBlockInfo.cs" />
+    <Compile Include="data\MarkBlockNode.cs" />
     <Compile Include="data\MarkInfo.cs" />
     <Compile Include="data\PageInfo.cs" />
     <Compile Include="data\PageNode.cs" />

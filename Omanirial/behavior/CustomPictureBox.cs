@@ -57,6 +57,10 @@ namespace Omanirial.behavior
             {
                 PutMaskAttribute(mark);
             }
+            if (Page != null && MarkBlock != null)
+            {
+                Page.BlockList.Add(MarkBlock);
+            }
             lastPt = mousePt;
             lastMark = mark;
         }
@@ -116,7 +120,9 @@ namespace Omanirial.behavior
             }
             var pref = Preference.Instance;
             var r = pref.MarkRadius;
-            var w = r * 2;
+            var width = Page.TimingMarkPitch;
+            var hW = width / 2;
+            var h = r * 2;
 
             foreach (var mark in Page.MarkList)
             {
@@ -126,7 +132,7 @@ namespace Omanirial.behavior
                 {
                     using (var brush = new SolidBrush(Color.FromArgb(0x30, Color.Gray)))
                     {
-                        g.FillRectangle(brush, new Rectangle(pt.X - r, pt.Y - r, w, w));
+                        g.FillRectangle(brush, new Rectangle(pt.X - hW, pt.Y - r, width, h));
                     }
                 }
             }
@@ -274,11 +280,18 @@ namespace Omanirial.behavior
             MouseDown += (sender, e) =>
             {
                 mousePt = e.Location;
-                var mark = FindMark(mousePt);
-
-                if (mark != null)
+                if (PutMask)
                 {
-                    drawBegan = !mark.Disabled;
+                    var mark = FindMark(mousePt);
+
+                    if (mark != null)
+                    {
+                        drawBegan = !mark.Disabled;
+                    }
+                }
+                else
+                {
+                    drawBegan = true;
                 }
                 Invalidate();
             };
@@ -332,6 +345,7 @@ namespace Omanirial.behavior
         public int Score { get; internal set; }
 
         public bool PutMask { get; set; }
+        public MarkBlockInfo MarkBlock { get; set; }
 
         public bool ShowGrid { get; set; }
         public bool ShowMarks { get; set; }

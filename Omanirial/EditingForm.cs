@@ -68,8 +68,6 @@ namespace Omanirial
             lastMat?.Dispose();
             lastMat = img;
             BasePictureBox.Page = page;
-            BasePictureBox.Image?.Dispose();
-            BasePictureBox.Image = img.Bitmap;
         }
 
         private void PageListView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -93,6 +91,7 @@ namespace Omanirial
             DrawImage(page);
             ColumnsTextBox.Text = page.TimingMarkList.Count.ToString();
             RowsUpDown.Value = page.MarkAreaRows;
+            StatusMessageLabel.Text = page.TimingMarkPitch.ToString();
         }
         #endregion
 
@@ -101,6 +100,10 @@ namespace Omanirial
         {
             Debug.Print("ToolChanged");
             BasePictureBox.PutMask = DisableColumnButton.Checked;
+            if (AddItemButton.Checked)
+            {
+                BasePictureBox.MarkBlock = new MarkBlockInfo { Number = 1 };
+            }
         }
 
         private void ShowGridButton_CheckedChanged(object sender, EventArgs e)
@@ -166,6 +169,8 @@ namespace Omanirial
                 CurrentLayout.Name = TitleTextBox.Text;
                 RefreshControls();
             };
+            ColumnsTextBox.Text = string.Empty;
+            RowsUpDown.Value = 0;
             // ToolBox
             CursorButton.Click += ToolChanged;
             DisableColumnButton.Click += ToolChanged;

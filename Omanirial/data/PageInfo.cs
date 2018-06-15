@@ -12,6 +12,7 @@ namespace Omanirial.data
     {
         #region Attributes
         private int _timingMarkTop;
+        private int _timingMarkPitch;
 
         [DataMember]
         public string Filename { get; set; }
@@ -23,6 +24,8 @@ namespace Omanirial.data
         public List<Point> TimingMarkList { get; set; } = new List<Point>();
         [DataMember]
         public List<MarkInfo> MarkList { get; set; } = new List<MarkInfo>();
+        [DataMember]
+        public List<MarkBlockInfo> BlockList { get; set; } = new List<MarkBlockInfo>();
         [DataMember]
         public bool IsUpsideDown { get; set; }
         [DataMember]
@@ -52,19 +55,40 @@ namespace Omanirial.data
                 return _timingMarkTop;
             }
         }
+        public int TimingMarkPitch
+        {
+            get
+            {
+                if (_timingMarkPitch == 0 && 0 < TimingMarkList.Count)
+                {
+                    var total = 0f;
+                    var left = 0;
+
+                    foreach (var pt in TimingMarkList)
+                    {
+                        if (0 < left)
+                        {
+                            total += pt.X - left;
+                        }
+                        left = pt.X;
+                    }
+                    _timingMarkPitch = (int)(total / TimingMarkList.Count);
+                }
+                return _timingMarkPitch;
+            }
+        }
         #endregion
 
         #region Method
         public MarkInfo FindMark(Point pt)
         {
             MarkInfo result = null;
-            var pref = Preference.Instance;
-            var r = pref.MarkRadius;
-            var w = r * 2;
+            var width = TimingMarkPitch + 2;
+            var hW = width / 2;
 
             foreach (var mark in MarkList)
             {
-                var rect = new Rectangle(mark.Location.X - r, mark.Location.Y - MarkPitch / 2, w, MarkPitch);
+                var rect = new Rectangle(mark.Location.X - hW, mark.Location.Y - MarkPitch / 2, width, MarkPitch);
 
                 if (rect.Contains(pt))
                 {
@@ -112,6 +136,7 @@ namespace Omanirial.data
                 TimingMarkList.AddRange(ImageUtils.DetectTimingMarks(img, out bool isUpsideDown));
                 IsUpsideDown = isUpsideDown;
             }
+            TimingMarkList.Sort((p1, p2) => p1.X - p2.X);
             SetupMarkList();
             Filename = filename;
         }

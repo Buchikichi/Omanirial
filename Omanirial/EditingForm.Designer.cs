@@ -32,7 +32,7 @@
             this.CloseButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusMessageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.springLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.Balloon = new System.Windows.Forms.ToolTip(this.components);
@@ -90,7 +90,7 @@
             // StatusBar
             // 
             this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
+            this.StatusMessageLabel,
             this.springLabel,
             this.ProgressBar});
             this.StatusBar.Location = new System.Drawing.Point(0, 707);
@@ -99,16 +99,15 @@
             this.StatusBar.TabIndex = 2;
             this.StatusBar.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // StatusMessageLabel
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.StatusMessageLabel.Name = "StatusMessageLabel";
+            this.StatusMessageLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // springLabel
             // 
             this.springLabel.Name = "springLabel";
-            this.springLabel.Size = new System.Drawing.Size(673, 17);
+            this.springLabel.Size = new System.Drawing.Size(760, 17);
             this.springLabel.Spring = true;
             // 
             // ProgressBar
@@ -296,6 +295,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BasePictureBox.Location = new System.Drawing.Point(184, 42);
             this.BasePictureBox.Margin = new System.Windows.Forms.Padding(4);
+            this.BasePictureBox.MarkBlock = null;
             this.BasePictureBox.Name = "BasePictureBox";
             this.BasePictureBox.PutMask = false;
             this.BasePictureBox.ShowAttributes = true;
@@ -353,7 +353,7 @@
         private System.Windows.Forms.ToolTip Balloon;
         private System.Windows.Forms.TreeView PageListView;
         private System.Windows.Forms.TextBox TitleTextBox;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel StatusMessageLabel;
         private System.Windows.Forms.ToolStripStatusLabel springLabel;
         private System.Windows.Forms.ToolStripProgressBar ProgressBar;
         private System.Windows.Forms.TextBox ColumnsTextBox;

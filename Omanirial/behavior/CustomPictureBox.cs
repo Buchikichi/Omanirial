@@ -248,10 +248,14 @@ namespace Omanirial.behavior
             DrawAttributes(g);
             DrawMarks(g);
             DrawCell(g, mark);
-            DrawScore(g, mark, Brushes.DarkBlue);
+            DrawScore(g, mark, Brushes.SkyBlue);
             g.Restore(state);
 
-            DrawHist(g, mark);
+            if (ShowScore)
+            {
+                DrawHist(g, mark);
+            }
+            Score = mark == null ? 0 : mark.Score;
         }
         #endregion
 
@@ -324,6 +328,8 @@ namespace Omanirial.behavior
                 }
             }
         }
+
+        public int Score { get; internal set; }
 
         public bool PutMask { get; set; }
 

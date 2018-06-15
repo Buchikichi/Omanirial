@@ -145,13 +145,17 @@ namespace Omanirial
                 ImageDir = dir,
                 Counter = scanCount,
             };
+            StatusMessageLabel.Text = "スキャンしています...";
             scanner.Start();
+            StatusMessageLabel.Text = "画像を分析しています...";
+            StatusBar.Refresh();
             foreach (var info in scanner.FileList)
             {
                 AddPage(info.Filename);
             }
             scanner.End();
             scanCount = scanner.Counter;
+            StatusMessageLabel.Text = string.Empty;
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -165,6 +169,21 @@ namespace Omanirial
                 return;
             }
             ScanButton.PerformClick();
+        }
+        #endregion
+
+        #region BasePictureBox
+        private void BasePictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            var msg = string.Empty;
+
+            if (0 < BasePictureBox.Score)
+            {
+                var sc = BasePictureBox.Score.ToString("#,0");
+
+                msg = $"score:{sc}";
+            }
+            StatusLabel.Text = msg;
         }
         #endregion
 

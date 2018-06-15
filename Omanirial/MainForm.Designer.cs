@@ -32,6 +32,8 @@
             this.ImageListBox = new System.Windows.Forms.ListBox();
             this.SaveButton = new System.Windows.Forms.Button();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
+            this.StatusMessageLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.Balloon = new System.Windows.Forms.ToolTip(this.components);
             this.BaseDirTextBox = new System.Windows.Forms.TextBox();
@@ -45,6 +47,7 @@
             this.ShowScoreButton = new System.Windows.Forms.ToolStripButton();
             this.ShowAttributesButton = new System.Windows.Forms.ToolStripButton();
             this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
+            this.StatusBar.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -80,11 +83,27 @@
             // 
             // StatusBar
             // 
+            this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusMessageLabel,
+            this.StatusLabel});
             this.StatusBar.Location = new System.Drawing.Point(0, 707);
             this.StatusBar.Name = "StatusBar";
             this.StatusBar.Size = new System.Drawing.Size(1008, 22);
             this.StatusBar.TabIndex = 4;
             this.StatusBar.Text = "statusStrip1";
+            // 
+            // StatusMessageLabel
+            // 
+            this.StatusMessageLabel.AutoSize = false;
+            this.StatusMessageLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.StatusMessageLabel.Name = "StatusMessageLabel";
+            this.StatusMessageLabel.Size = new System.Drawing.Size(400, 17);
+            this.StatusMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // label1
             // 
@@ -232,6 +251,7 @@
             this.BasePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BasePictureBox.TabIndex = 0;
             this.BasePictureBox.TabStop = false;
+            this.BasePictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BasePictureBox_MouseMove);
             // 
             // MainForm
             // 
@@ -255,6 +275,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
+            this.StatusBar.ResumeLayout(false);
+            this.StatusBar.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).EndInit();
@@ -281,6 +303,8 @@
         private System.Windows.Forms.ToolStripButton ShowGridButton;
         private System.Windows.Forms.ToolStripButton ShowScoreButton;
         private System.Windows.Forms.ToolStripButton ShowAttributesButton;
+        private System.Windows.Forms.ToolStripStatusLabel StatusMessageLabel;
+        private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
     }
 }
 

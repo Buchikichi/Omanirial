@@ -43,6 +43,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowGridButton = new System.Windows.Forms.ToolStripButton();
             this.ShowScoreButton = new System.Windows.Forms.ToolStripButton();
+            this.ShowAttributesButton = new System.Windows.Forms.ToolStripButton();
             this.BasePictureBox = new Omanirial.behavior.CustomPictureBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BasePictureBox)).BeginInit();
@@ -136,7 +137,8 @@
             this.EditLayoutButton,
             this.toolStripSeparator1,
             this.ShowGridButton,
-            this.ShowScoreButton});
+            this.ShowScoreButton,
+            this.ShowAttributesButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1008, 28);
@@ -201,6 +203,17 @@
             this.ShowScoreButton.Text = "スコア表示";
             this.ShowScoreButton.Click += new System.EventHandler(this.ShowScoreButton_Click);
             // 
+            // ShowAttributesButton
+            // 
+            this.ShowAttributesButton.CheckOnClick = true;
+            this.ShowAttributesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ShowAttributesButton.Image = global::Omanirial.Properties.Resources.ShowAllAttributes_16x;
+            this.ShowAttributesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ShowAttributesButton.Name = "ShowAttributesButton";
+            this.ShowAttributesButton.Size = new System.Drawing.Size(23, 25);
+            this.ShowAttributesButton.ToolTipText = "属性表示";
+            this.ShowAttributesButton.Click += new System.EventHandler(this.ShowAttributesButton_Click);
+            // 
             // BasePictureBox
             // 
             this.BasePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -210,8 +223,8 @@
             this.BasePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.BasePictureBox.Location = new System.Drawing.Point(179, 32);
             this.BasePictureBox.Name = "BasePictureBox";
-            this.BasePictureBox.Page = null;
             this.BasePictureBox.PutMask = false;
+            this.BasePictureBox.ShowAttributes = false;
             this.BasePictureBox.ShowGrid = false;
             this.BasePictureBox.ShowMarks = true;
             this.BasePictureBox.ShowScore = false;
@@ -267,6 +280,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton ShowGridButton;
         private System.Windows.Forms.ToolStripButton ShowScoreButton;
+        private System.Windows.Forms.ToolStripButton ShowAttributesButton;
     }
 }
 

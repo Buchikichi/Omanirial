@@ -44,7 +44,7 @@ namespace Omanirial.util
         public int MarkAreaDefaultHeight { get; set; }
         public int MarkAreaDefaultRows { get; set; }
         public int MarkColorThreshold { get; set; }
-        public int MarkRadius { get; set; }
+        public int MarkRadius { get; set; } = 17;
         public int TimingMarkAreaHeight { get; set; }
         public int TimingMarkMinHeight { get; set; }
     }

@@ -1,5 +1,4 @@
-﻿#define SCAN
-#if SCAN
+﻿#if SCAN
 using AxFiScnLib;
 #endif
 using Omanirial.data;
@@ -7,7 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+#if !SCAN
 using System;
+#endif
 
 namespace Omanirial.scan
 {

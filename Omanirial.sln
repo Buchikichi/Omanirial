@@ -7,10 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omanirial", "Omanirial\Oman
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug(SCAN)|Any CPU = Debug(SCAN)|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48FB9A93-3880-45DE-9A83-3A512B3F76F4}.Debug(SCAN)|Any CPU.ActiveCfg = Debug(SCAN)|Any CPU
+		{48FB9A93-3880-45DE-9A83-3A512B3F76F4}.Debug(SCAN)|Any CPU.Build.0 = Debug(SCAN)|Any CPU
 		{48FB9A93-3880-45DE-9A83-3A512B3F76F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48FB9A93-3880-45DE-9A83-3A512B3F76F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48FB9A93-3880-45DE-9A83-3A512B3F76F4}.Release|Any CPU.ActiveCfg = Release|Any CPU

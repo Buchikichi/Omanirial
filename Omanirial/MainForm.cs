@@ -4,7 +4,6 @@ using Omanirial.scan;
 using Omanirial.util;
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -27,13 +26,12 @@ namespace Omanirial
         }
 
         #region LayoutInfo
-        private void ShowEditingForm()
+        private void ShowEditingForm(LayoutInfo layout = null)
         {
             if (!CheckBaseDir())
             {
                 return;
             }
-            var layout = (LayoutInfo)LayoutListBox.SelectedItem;
             var next = new EditingForm { CurrentLayout = layout };
 
             Hide();
@@ -43,7 +41,7 @@ namespace Omanirial
 
         private void AddLayoutButton_Click(object sender, EventArgs e) => ShowEditingForm();
 
-        private void EditLayoutButton_Click(object sender, EventArgs e) => ShowEditingForm();
+        private void EditLayoutButton_Click(object sender, EventArgs e) => ShowEditingForm((LayoutInfo)LayoutListBox.SelectedItem);
         #endregion
 
         #region ImageListBox
@@ -182,6 +180,13 @@ namespace Omanirial
             BasePictureBox.ShowScore = ShowScoreButton.Checked;
             BasePictureBox.Invalidate();
         }
+
+        private void ShowAttributesButton_Click(object sender, EventArgs e)
+        {
+            BasePictureBox.ShowAttributes = ShowAttributesButton.Checked;
+            BasePictureBox.Invalidate();
+        }
+
         private void BaseDirTextBox_DoubleClick(object sender, EventArgs e)
         {
             if (!CheckBaseDir())

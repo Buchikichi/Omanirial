@@ -74,9 +74,13 @@ namespace Omanirial.behavior
 
             foreach (var b in mark.Hist)
             {
-                if (x < max)
+                if (x < 256)
                 {
-                    g.DrawLine(Pens.OrangeRed, new Point(x, 0), new Point(x, b));
+                    g.DrawLine(Pens.Red, new Point(x, 0), new Point(x, b));
+                }
+                else if (x < max)
+                {
+                    g.DrawLine(Pens.Orange, new Point(x, 0), new Point(x, b));
                 }
                 else
                 {
@@ -106,6 +110,10 @@ namespace Omanirial.behavior
 
         private void DrawAttributes(Graphics g)
         {
+            if (!ShowAttributes)
+            {
+                return;
+            }
             var pref = Preference.Instance;
             var r = pref.MarkRadius;
             var w = r * 2;
@@ -158,7 +166,7 @@ namespace Omanirial.behavior
                 }
                 var pt = mark.Location;
 
-                if (500 < mark.Score)
+                if (MIN_SCORE < mark.Score)
                 {
                     g.DrawEllipse(Pens.LimeGreen, new Rectangle(pt.X - r, pt.Y - r, w, w));
                 }
@@ -287,6 +295,8 @@ namespace Omanirial.behavior
         #endregion
 
         #region Members
+        private const int MIN_SCORE = 3000;
+
         private bool? drawBegan;
         private PageInfo _page;
         private MarkInfo lastMark;
@@ -320,6 +330,7 @@ namespace Omanirial.behavior
         public bool ShowGrid { get; set; }
         public bool ShowMarks { get; set; }
         public bool ShowScore { get; set; }
+        public bool ShowAttributes { get; set; }
         #endregion
     }
 }

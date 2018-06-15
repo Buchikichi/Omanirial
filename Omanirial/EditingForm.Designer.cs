@@ -213,9 +213,9 @@
             this.AddItem3Button,
             this.toolStripSeparator1,
             this.ShowGridButton});
-            this.toolStrip1.Location = new System.Drawing.Point(976, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(984, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(32, 707);
+            this.toolStrip1.Size = new System.Drawing.Size(24, 707);
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -274,7 +274,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(29, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(21, 6);
             // 
             // ShowGridButton
             // 
@@ -297,7 +297,8 @@
             this.BasePictureBox.Location = new System.Drawing.Point(184, 42);
             this.BasePictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.BasePictureBox.Name = "BasePictureBox";
-            this.BasePictureBox.Page = null;
+            this.BasePictureBox.PutMask = false;
+            this.BasePictureBox.ShowAttributes = true;
             this.BasePictureBox.ShowGrid = false;
             this.BasePictureBox.ShowMarks = false;
             this.BasePictureBox.ShowScore = false;
